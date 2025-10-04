@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { renderToString } from 'react-dom/server'
 import App from './App'
+import './i18n'
 
 /**
  * @param {string} _url
