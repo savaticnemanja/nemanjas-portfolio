@@ -11,6 +11,8 @@ import markdown from 'highlight.js/lib/languages/markdown'
 import 'highlight.js/styles/atom-one-dark.css'
 
 import { getPostBySlug } from '../content/posts'
+import FloatingSymbols from '../components/FloatingSymbols'
+import usePageGlow from '../hooks/usePageGlow'
 import '../App.css'
 
 hljs.registerLanguage('javascript', javascript)
@@ -51,6 +53,7 @@ const formatDate = (value) => {
 }
 
 const BlogArticle = ({ slug, initialPost }) => {
+  const pageRef = usePageGlow()
   const post = useMemo(() => initialPost ?? getPostBySlug(slug), [slug, initialPost])
 
   useEffect(() => {
@@ -155,7 +158,8 @@ const BlogArticle = ({ slug, initialPost }) => {
 
   if (!post) {
     return (
-      <div className="blog-article-page">
+      <div className="blog-article-page" ref={pageRef}>
+        <FloatingSymbols />
         <div className="blog-article-page__frame">
           <a className="blog-article-page__back" href="/blog/">
             ← Back to blog
@@ -172,7 +176,8 @@ const BlogArticle = ({ slug, initialPost }) => {
   }
 
   return (
-    <div className="blog-article-page">
+    <div className="blog-article-page" ref={pageRef}>
+      <FloatingSymbols />
       <div className="blog-article-page__frame">
         <a className="blog-article-page__back" href="/blog/">
           ← Back to blog
