@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
-const ContactSection = ({ email }) => {
+const ContactSection = () => {
   const { t } = useTranslation()
   const form = t('contact.form', { returnObjects: true })
 
@@ -37,7 +37,6 @@ const ContactSection = ({ email }) => {
           {form.submit}
         </button>
       </form>
-      <p className="panel-meta">{email}</p>
     </div>
   )
 }

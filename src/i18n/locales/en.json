@@ -3,10 +3,8 @@
     "about": { "label": "01. About", "short": "About" },
     "experience": { "label": "02. Experience", "short": "Experience" },
     "work": { "label": "03. Work", "short": "Work" },
-    "contact": { "label": "04. Contact", "short": "Contact" }
-  },
-  "doughnut": {
-    "order": ["about", "contact", "work", "experience"]
+    "blog": { "label": "04. Blog", "short": "Blog" },
+    "contact": { "label": "05. Contact", "short": "Contact" }
   },
   "header": {
     "resume": "Resume",
@@ -23,23 +21,19 @@
     "title": "Experience",
     "positions": [
       {
-        "title": "Senior Frontend Engineer",
-        "company": "Upstatement",
-        "period": "2022 — Present",
+        "title": "Senior Software Engineer",
+        "company": "Arrowhead Development",
+        "period": "January 2023 — Present",
         "bullets": [
-          "Lead accessible product experiences for mission-driven teams.",
-          "Prototype design systems in React, TypeScript, and modern CSS tooling.",
-          "Partner with designers and stakeholders to deliver inclusive interfaces."
+          "Lead accessible product experiences for mission-driven teams."
         ]
       },
       {
-        "title": "Frontend Engineer",
-        "company": "Freelance",
-        "period": "2019 — 2022",
+        "title": "Software Engineer",
+        "company": "UnderIT",
+        "period": "April 2021 — January 2023",
         "bullets": [
-          "Built and maintained marketing sites with headless CMS workflows.",
-          "Optimized performance budgets to keep LCP under two seconds on mobile.",
-          "Introduced automated testing pipelines for small, fast-moving teams."
+          "Built and maintained marketing sites with headless CMS workflows."
         ]
       }
     ]
@@ -49,16 +43,82 @@
     "title": "Work",
     "projects": [
       {
-        "title": "Portfolio Platform",
-        "description": "Designing a modular Vite + React starter tailored for expressive, animation-rich personal sites.",
-        "action": "View case study",
-        "href": "#portfolio"
+        "title": "3D Tour",
+        "description": "Live deployment at 3d-tour.nemanjas.dev.",
+        "action": "Visit site",
+        "href": "https://3d-tour.nemanjas.dev"
       },
       {
-        "title": "Commerce Dashboard",
-        "description": "Real-time analytics dashboards for independent retailers with bespoke data visualizations and alerts.",
-        "action": "Explore project",
-        "href": "#dashboard"
+        "title": "Avala Home Concept",
+        "description": "Live deployment at avalahomeconcept.com.",
+        "action": "Visit site",
+        "href": "https://avalahomeconcept.com"
+      },
+      {
+        "title": "AlgoKey",
+        "description": "Live deployment at algokey.algo-sphere.com.",
+        "action": "Visit site",
+        "href": "https://algokey.algo-sphere.com"
+      },
+      {
+        "title": "Minibambini eCommerce",
+        "description": "Live deployment at jeftinko.nemanjas.dev.",
+        "action": "Visit site",
+        "href": "https://minibambini.rs"
+      },
+      {
+        "title": "Kosnica ReviewShield",
+        "description": "Live deployment at kosnica.nemanjas.dev.",
+        "action": "Visit site",
+        "href": "https://kosnica.nemanjas.dev"
+      },
+      {
+        "title": "Spacetrin",
+        "description": "Live deployment at spacetrin.com.",
+        "action": "Visit site",
+        "href": "https://spacetrin.com"
+      }
+    ]
+  },
+  "blog": {
+    "eyebrow": "Writing",
+    "title": "Blog",
+    "posts": [
+      {
+        "title": "Designing delightful UI animations",
+        "description": "How motion can reinforce hierarchy and provide clarity across digital experiences.",
+        "action": "Read article",
+        "href": "#blog-motion"
+      },
+      {
+        "title": "Designing delightful UI animations",
+        "description": "How motion can reinforce hierarchy and provide clarity across digital experiences.",
+        "action": "Read article",
+        "href": "#blog-motion"
+      },
+      {
+        "title": "Designing delightful UI animations",
+        "description": "How motion can reinforce hierarchy and provide clarity across digital experiences.",
+        "action": "Read article",
+        "href": "#blog-motion"
+      },
+      {
+        "title": "Designing delightful UI animations",
+        "description": "How motion can reinforce hierarchy and provide clarity across digital experiences.",
+        "action": "Read article",
+        "href": "#blog-motion"
+      },
+      {
+        "title": "Designing delightful UI animations",
+        "description": "How motion can reinforce hierarchy and provide clarity across digital experiences.",
+        "action": "Read article",
+        "href": "#blog-motion"
+      },
+      {
+        "title": "Scaling design systems with React",
+        "description": "A look at component-driven `work`flows that keep cross-functional teams aligned.",
+        "action": "Read article",
+        "href": "#blog-design-systems"
       }
     ]
   },

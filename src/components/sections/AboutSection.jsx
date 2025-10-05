@@ -4,7 +4,7 @@ const AboutSection = () => {
   const { t } = useTranslation()
 
   return (
-    <>
+    <div className="panel panel--hero">
       <p className="panel-eyebrow">{t('hero.greeting')}</p>
       <h1>{t('hero.name')}</h1>
       <h2>{t('hero.subtitle')}</h2>
@@ -25,7 +25,7 @@ const AboutSection = () => {
         </svg>
         <span>{t('header.resume')}</span>
       </a>
-    </>
+    </div>
   )
 }
 

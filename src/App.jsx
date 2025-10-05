@@ -6,19 +6,20 @@ import './App.css'
 import Header from './components/Header'
 import SocialBar from './components/SocialBar'
 import EmailBar from './components/EmailBar'
-import DoughnutNav from './components/DoughnutNav'
 import AboutSection from './components/sections/AboutSection'
 import ExperienceSection from './components/sections/ExperienceSection'
 import WorkSection from './components/sections/WorkSection'
+import BlogSection from './components/sections/BlogSection'
 import ContactSection from './components/sections/ContactSection'
 
 const emailAddress = 'savatic.nemanja@gmail.com'
 
-const SECTION_IDS = ['about', 'experience', 'work', 'contact']
+const SECTION_IDS = ['about', 'experience', 'work', 'blog', 'contact']
 const SECTION_COMPONENTS = {
   about: AboutSection,
   experience: ExperienceSection,
   work: WorkSection,
+  blog: BlogSection,
   contact: ContactSection,
 }
 
@@ -49,9 +50,7 @@ const FLOAT_SETTINGS = {
   },
 }
 
-const sectionSpecificProps = {
-  contact: { email: emailAddress },
-}
+const sectionSpecificProps = {}
 
 function App() {
   const pageRef = useRef(null)
@@ -59,6 +58,7 @@ function App() {
   const animationRef = useRef(null)
   const wheelCooldownRef = useRef(false)
   const touchStartRef = useRef(null)
+  const touchContainerRef = useRef(null)
 
   const { t } = useTranslation()
 
@@ -71,11 +71,6 @@ function App() {
       })),
     [t],
   )
-
-  const doughnutOrder = useMemo(() => {
-    const order = t('doughnut.order', { returnObjects: true })
-    return Array.isArray(order) && order.length ? order : SECTION_IDS
-  }, [t])
 
   const [currentSectionIndex, setCurrentSectionIndex] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -233,6 +228,27 @@ function App() {
     const handleWheel = (event) => {
       if (transition || wheelCooldownRef.current) return
 
+      if (event.target instanceof Element) {
+        const container = event.target.closest('.panel-grid, .panel-stack')
+        if (container) {
+          const scrollTop = container.scrollTop
+          const scrollHeight = container.scrollHeight
+          const clientHeight = container.clientHeight
+          const maxScroll = scrollHeight - clientHeight
+          const canScroll = maxScroll > 0
+          if (canScroll) {
+            const atTop = scrollTop <= 1
+            const atBottom = scrollTop >= maxScroll - 1
+            if (event.deltaY > 0 && !atBottom) {
+              return
+            }
+            if (event.deltaY < 0 && !atTop) {
+              return
+            }
+          }
+        }
+      }
+
       const delta = event.deltaY
       if (Math.abs(delta) < 30) return
 
@@ -257,6 +273,9 @@ function App() {
   useEffect(() => {
     const handleTouchStart = (event) => {
       if (event.touches.length !== 1) return
+      const target = event.target
+      touchContainerRef.current =
+        target instanceof Element ? target.closest('.panel-grid, .panel-stack') : null
       touchStartRef.current = event.touches[0].clientY
     }
 
@@ -266,6 +285,25 @@ function App() {
 
       const currentY = event.touches[0].clientY
       const delta = touchStartRef.current - currentY
+
+      const container = touchContainerRef.current
+      if (container) {
+        const scrollTop = container.scrollTop
+        const scrollHeight = container.scrollHeight
+        const clientHeight = container.clientHeight
+        const maxScroll = scrollHeight - clientHeight
+        const canScroll = maxScroll > 0
+        if (canScroll) {
+          const atTop = scrollTop <= 1
+          const atBottom = scrollTop >= maxScroll - 1
+          if (delta > 0 && !atBottom) {
+            return
+          }
+          if (delta < 0 && !atTop) {
+            return
+          }
+        }
+      }
 
       if (Math.abs(delta) < 40) return
 
@@ -281,6 +319,7 @@ function App() {
 
     const handleTouchEnd = () => {
       touchStartRef.current = null
+      touchContainerRef.current = null
     }
 
     window.addEventListener('touchstart', handleTouchStart, { passive: true })
@@ -335,6 +374,11 @@ function App() {
   const ActiveSectionComponent = activeSection ? SECTION_COMPONENTS[activeSection.id] : null
   const incomingSection = transition ? sections[transition.to] : null
   const IncomingSectionComponent = incomingSection ? SECTION_COMPONENTS[incomingSection.id] : null
+  const totalSections = sections.length
+  const progressIndex = transition ? transition.to : currentSectionIndex
+  const progressPercent = totalSections
+    ? Math.min(100, Math.max(0, ((progressIndex + 1) / totalSections) * 100))
+    : 0
 
   return (
     <div className="page" ref={pageRef}>
@@ -364,8 +408,8 @@ function App() {
               className={`content-panel${
                 transition
                   ? scrollDirection === 'down'
-                    ? ' content-panel--exiting-down'
-                    : ' content-panel--exiting-up'
+                    ? ' content-panel--exiting-up'
+                    : ' content-panel--exiting-down'
                   : ' content-panel--active'
               }`}
             >
@@ -392,11 +436,9 @@ function App() {
 
       <SocialBar />
       <EmailBar email={emailAddress} />
-      <DoughnutNav
-        sections={sections}
-        doughnutOrder={doughnutOrder}
-        activeSectionId={activeSectionId}
-      />
+      <div className="scroll-progress" aria-hidden="true">
+        <span className="scroll-progress__fill" style={{ height: `${progressPercent}%` }} />
+      </div>
     </div>
   )
 }
