@@ -74,8 +74,10 @@ function App() {
 
   const [currentSectionIndex, setCurrentSectionIndex] = useState(() => {
     if (typeof window !== 'undefined') {
-      const slug = window.location.pathname.replace(/^\//, '')
-      const initialIndex = SECTION_IDS.indexOf(slug)
+      const pathname = window.location.pathname.replace(/\?.*$/, '')
+      const normalized = pathname.replace(/^\//, '').replace(/\/+$/, '')
+      const candidate = normalized.split('/')[0]
+      const initialIndex = SECTION_IDS.indexOf(candidate)
       if (initialIndex >= 0) {
         return initialIndex
       }
@@ -88,6 +90,27 @@ function App() {
 
   const activeSection = sections[currentSectionIndex]
   const activeSectionId = activeSection?.id
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+
+    const previousHtmlOverflow = document.documentElement.style.overflow
+    const previousBodyOverflow = document.body.style.overflow
+    const previousHtmlHeight = document.documentElement.style.height
+    const previousBodyHeight = document.body.style.height
+
+    document.documentElement.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden'
+    document.documentElement.style.height = '100dvh'
+    document.body.style.height = '100dvh'
+
+    return () => {
+      document.documentElement.style.overflow = previousHtmlOverflow
+      document.body.style.overflow = previousBodyOverflow
+      document.documentElement.style.height = previousHtmlHeight
+      document.body.style.height = previousBodyHeight
+    }
+  }, [])
 
   const navigateToIndex = useCallback(
     (nextIndex, withCooldown = false) => {

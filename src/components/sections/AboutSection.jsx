@@ -11,7 +11,16 @@ const AboutSection = () => {
       <p className="description">
         <Trans
           i18nKey="hero.description"
-          components={{ company: <a href="https://www.upstatement.com" /> }}
+          components={{
+            company: (
+              <a
+                key="company"
+                href="https://www.upstatement.com"
+                target="_blank"
+                rel="noreferrer noopener"
+              />
+            ),
+          }}
         />
       </p>
       <a

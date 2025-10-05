@@ -11,12 +11,13 @@
     "preview": "cross-env NODE_ENV=production node server"
   },
   "dependencies": {
-    "i18next": "^23.11.4",
     "compression": "^1.8.1",
     "express": "^5.1.0",
-    "react-i18next": "^14.1.2",
+    "highlight.js": "^11.11.1",
+    "i18next": "^23.11.4",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-i18next": "^14.1.2",
     "sirv": "^3.0.2"
   },
   "devDependencies": {

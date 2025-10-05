@@ -83,44 +83,15 @@
   "blog": {
     "eyebrow": "Writing",
     "title": "Blog",
-    "posts": [
-      {
-        "title": "Designing delightful UI animations",
-        "description": "How motion can reinforce hierarchy and provide clarity across digital experiences.",
-        "action": "Read article",
-        "href": "#blog-motion"
-      },
-      {
-        "title": "Designing delightful UI animations",
-        "description": "How motion can reinforce hierarchy and provide clarity across digital experiences.",
-        "action": "Read article",
-        "href": "#blog-motion"
-      },
-      {
-        "title": "Designing delightful UI animations",
-        "description": "How motion can reinforce hierarchy and provide clarity across digital experiences.",
-        "action": "Read article",
-        "href": "#blog-motion"
-      },
-      {
-        "title": "Designing delightful UI animations",
-        "description": "How motion can reinforce hierarchy and provide clarity across digital experiences.",
-        "action": "Read article",
-        "href": "#blog-motion"
-      },
-      {
-        "title": "Designing delightful UI animations",
-        "description": "How motion can reinforce hierarchy and provide clarity across digital experiences.",
-        "action": "Read article",
-        "href": "#blog-motion"
-      },
-      {
-        "title": "Scaling design systems with React",
-        "description": "A look at component-driven `work`flows that keep cross-functional teams aligned.",
-        "action": "Read article",
-        "href": "#blog-design-systems"
-      }
-    ]
+    "readMore": "Read article",
+    "emptyTitle": "No articles yet",
+    "emptyDescription": "Articles you publish in the posts/ folder will appear here automatically.",
+    "searchLabel": "Search",
+    "searchPlaceholder": "Search by title, description, or tag",
+    "filtersLabel": "Filter by tag",
+    "filtersAll": "All",
+    "emptyFilteredTitle": "No matching articles",
+    "emptyFilteredDescription": "Try updating your search or choosing a different tag."
   },
   "contact": {
     "eyebrow": "What's next?",

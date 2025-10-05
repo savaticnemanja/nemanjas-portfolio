@@ -57,7 +57,9 @@ app.use('*all', async (req, res) => {
       .replace(`<!--app-head-->`, rendered.head ?? '')
       .replace(`<!--app-html-->`, rendered.html ?? '')
 
-    res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
+    const status = rendered.status ?? 200
+
+    res.status(status).set({ 'Content-Type': 'text/html' }).send(html)
   } catch (e) {
     vite?.ssrFixStacktrace(e)
     console.log(e.stack)
