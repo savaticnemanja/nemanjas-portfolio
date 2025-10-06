@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import hljs from 'highlight.js/lib/core'
 import javascript from 'highlight.js/lib/languages/javascript'
@@ -10,10 +10,11 @@ import css from 'highlight.js/lib/languages/css'
 import markdown from 'highlight.js/lib/languages/markdown'
 import 'highlight.js/styles/atom-one-dark.css'
 
-import { getPostBySlug } from '../content/posts'
-import FloatingSymbols from '../components/FloatingSymbols'
-import usePageGlow from '../hooks/usePageGlow'
-import '../App.css'
+import ScrollProgress from '@components/ScrollProgress'
+import { getPostBySlug } from '@content/posts'
+import FloatingSymbols from '@components/FloatingSymbols'
+import usePageGlow from '@hooks/usePageGlow'
+import '@/App.scss'
 
 hljs.registerLanguage('javascript', javascript)
 hljs.registerLanguage('js', javascript)
@@ -54,6 +55,7 @@ const formatDate = (value) => {
 
 const BlogArticle = ({ slug, initialPost }) => {
   const pageRef = usePageGlow()
+  const [progress, setProgress] = useState(0)
   const post = useMemo(() => initialPost ?? getPostBySlug(slug), [slug, initialPost])
 
   useEffect(() => {
@@ -156,9 +158,34 @@ const BlogArticle = ({ slug, initialPost }) => {
     })
   }, [post])
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const updateProgress = () => {
+      const root = document.scrollingElement ?? document.documentElement
+      if (!root) return
+      const scrollTop = root.scrollTop
+      const scrollHeight = root.scrollHeight
+      const clientHeight = root.clientHeight
+      const maxScroll = Math.max(0, scrollHeight - clientHeight)
+      const next = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0
+      setProgress(next)
+    }
+
+    updateProgress()
+    window.addEventListener('scroll', updateProgress, { passive: true })
+    window.addEventListener('resize', updateProgress)
+
+    return () => {
+      window.removeEventListener('scroll', updateProgress)
+      window.removeEventListener('resize', updateProgress)
+    }
+  }, [post])
+
   if (!post) {
     return (
       <div className="blog-article-page" ref={pageRef}>
+        <ScrollProgress orientation="horizontal" value={progress} />
         <FloatingSymbols />
         <div className="blog-article-page__frame">
           <a className="blog-article-page__back" href="/blog/">
@@ -177,6 +204,7 @@ const BlogArticle = ({ slug, initialPost }) => {
 
   return (
     <div className="blog-article-page" ref={pageRef}>
+      <ScrollProgress orientation="horizontal" value={progress} />
       <FloatingSymbols />
       <div className="blog-article-page__frame">
         <a className="blog-article-page__back" href="/blog/">

@@ -1,9 +1,9 @@
 import { StrictMode } from 'react'
 import { renderToString } from 'react-dom/server'
-import App from './App'
-import BlogArticle from './pages/BlogArticle'
-import { getPostBySlug, isBlogSlug } from './content/posts'
-import './i18n'
+import App from '@/App'
+import BlogArticle from '@/pages/BlogArticle'
+import { getPostBySlug, isBlogSlug } from '@content/posts'
+import '@/i18n'
 
 const defaultTitle = 'Nemanja Savatic · Software Engineer'
 const defaultDescription =

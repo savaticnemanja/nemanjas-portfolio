@@ -1,5 +1,8 @@
 import { useTranslation } from 'react-i18next'
 
+import Button from '@components/Button'
+import { ArrowUpRightIcon } from '@components/icons/ActionIcons'
+
 const WorkSection = () => {
   const { t } = useTranslation()
   const projects = t('work.projects', { returnObjects: true })
@@ -13,14 +16,9 @@ const WorkSection = () => {
           <article key={index} className="panel-card panel-card--project">
             <h3>{project.title}</h3>
             <p className="panel-description">{project.description}</p>
-            <a
-              className="panel-link"
-              href={project.href}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
+            <Button as="a" href={project.href} target="_blank" icon={<ArrowUpRightIcon />}>
               {project.action}
-            </a>
+            </Button>
           </article>
         ))}
       </div>

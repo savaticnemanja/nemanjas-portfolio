@@ -1,5 +1,8 @@
 import { useTranslation } from 'react-i18next'
 
+import Button from '@components/Button'
+import { PaperPlaneIcon } from '@components/icons/ActionIcons'
+
 const ContactSection = () => {
   const { t } = useTranslation()
   const form = t('contact.form', { returnObjects: true })
@@ -33,9 +36,7 @@ const ContactSection = () => {
           <span>{form.contentLabel}</span>
           <textarea name="content" rows="4" placeholder={form.contentPlaceholder} required />
         </label>
-        <button type="submit" className="resume">
-          {form.submit}
-        </button>
+        <Button type="submit" icon={<PaperPlaneIcon />}>{form.submit}</Button>
       </form>
     </div>
   )

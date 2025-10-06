@@ -1,0 +1,119 @@
+.social-bar {
+  position: fixed;
+  left: 3rem;
+  top: auto;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.scroll-progress {
+  position: fixed;
+  z-index: 9;
+  pointer-events: none;
+  background: rgba(var(--color-accent-rgb), 0.12);
+  overflow: hidden;
+  border-radius: 999px;
+}
+
+.scroll-progress--vertical {
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 100dvh;
+}
+
+.scroll-progress--horizontal {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+}
+
+.scroll-progress__fill {
+  display: block;
+  background: var(--color-accent);
+}
+
+.scroll-progress--vertical .scroll-progress__fill {
+  width: 100%;
+  height: 0;
+  transition: height 0.35s ease;
+}
+
+.scroll-progress--horizontal .scroll-progress__fill {
+  width: 0;
+  height: 100%;
+  transition: width 0.2s ease;
+}
+
+.social-bar ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.social-bar ul::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 90px;
+  background-color: var(--color-text-muted);
+  margin-top: 0.5rem;
+}
+
+.social-bar a {
+  display: inline-flex;
+  padding: 0.6rem;
+  color: var(--color-text-primary);
+  transition: transform var(--transition-quick), color var(--transition-quick);
+}
+
+.social-bar svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.social-bar a:hover {
+  color: var(--color-accent);
+  transform: translateY(-3px);
+}
+
+.email-bar {
+  position: fixed;
+  right: 3rem;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.email-bar::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 90px;
+  background-color: var(--color-text-muted);
+  margin-top: 0.5rem;
+}
+
+.email-bar a {
+  writing-mode: vertical-rl;
+  color: var(--color-text-primary);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color var(--transition-quick), transform var(--transition-quick);
+}
+
+.email-bar a:hover {
+  color: var(--color-accent);
+  transform: translateY(-3px);
+}

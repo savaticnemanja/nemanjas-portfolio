@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { socialLinks } from '../data/socialLinks'
+import { socialLinks } from '@data/socialLinks'
 
 const SocialBar = () => {
   const { t } = useTranslation()

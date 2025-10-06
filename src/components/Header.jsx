@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
-import { socialLinks } from '../data/socialLinks'
+import { socialLinks } from '@data/socialLinks'
 
 const Header = ({ sections, activeSectionId, onNavigate }) => {
   const { t } = useTranslation()

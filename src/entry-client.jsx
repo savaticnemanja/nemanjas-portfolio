@@ -1,10 +1,10 @@
-import './index.css'
+import '@/index.scss'
 import './i18n'
 import { StrictMode } from 'react'
 import { hydrateRoot } from 'react-dom/client'
-import App from './App'
-import BlogArticle from './pages/BlogArticle'
-import { getPostBySlug, isBlogSlug } from './content/posts'
+import App from '@/App'
+import BlogArticle from '@/pages/BlogArticle'
+import { getPostBySlug, isBlogSlug } from '@content/posts'
 
 const container = document.getElementById('root')
 

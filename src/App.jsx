@@ -1,18 +1,19 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import './App.css'
+import '@/App.scss'
 
-import Header from './components/Header'
-import SocialBar from './components/SocialBar'
-import EmailBar from './components/EmailBar'
-import AboutSection from './components/sections/AboutSection'
-import ExperienceSection from './components/sections/ExperienceSection'
-import WorkSection from './components/sections/WorkSection'
-import BlogSection from './components/sections/BlogSection'
-import ContactSection from './components/sections/ContactSection'
-import FloatingSymbols from './components/FloatingSymbols'
-import usePageGlow from './hooks/usePageGlow'
+import Header from '@components/Header'
+import SocialBar from '@components/SocialBar'
+import EmailBar from '@components/EmailBar'
+import ScrollProgress from '@components/ScrollProgress'
+import AboutSection from '@components/sections/AboutSection'
+import ExperienceSection from '@components/sections/ExperienceSection'
+import WorkSection from '@components/sections/WorkSection'
+import BlogSection from '@components/sections/BlogSection'
+import ContactSection from '@components/sections/ContactSection'
+import FloatingSymbols from '@components/FloatingSymbols'
+import usePageGlow from '@hooks/usePageGlow'
 
 const emailAddress = 'savatic.nemanja@gmail.com'
 
@@ -313,9 +314,7 @@ function App() {
 
       <SocialBar />
       <EmailBar email={emailAddress} />
-      <div className="scroll-progress" aria-hidden="true">
-        <span className="scroll-progress__fill" style={{ height: `${progressPercent}%` }} />
-      </div>
+      <ScrollProgress value={progressPercent} />
     </div>
   )
 }

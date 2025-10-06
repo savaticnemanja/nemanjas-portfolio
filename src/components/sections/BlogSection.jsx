@@ -1,7 +1,9 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { getPosts } from '../../content/posts'
+import Button from '@components/Button'
+import { BookOpenIcon } from '@components/icons/ActionIcons'
+import { getPosts } from '@content/posts'
 
 const monthNames = [
   'January',
@@ -128,9 +130,9 @@ const BlogSection = () => {
                   </ul>
                 ) : null}
                 <p className="panel-description">{post.description ?? post.excerpt}</p>
-                <a className="panel-link" href={post.url}>
+                <Button as="a" href={post.url} icon={<BookOpenIcon />}>
                   {t('blog.readMore')}
-                </a>
+                </Button>
               </article>
             ))}
             {filteredPosts.length === 0 && (
