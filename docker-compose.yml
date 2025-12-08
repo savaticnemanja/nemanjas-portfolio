@@ -1,6 +1,7 @@
 services:
   personal-portfolio:
     build: .
+    image: personal-portfolio
     container_name: personal-portfolio
     ports:
       - "127.0.0.1:${HOST_PORT:-8081}:80"
