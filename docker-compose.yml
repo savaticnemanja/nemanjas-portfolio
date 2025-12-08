@@ -1,11 +1,12 @@
+name: personal-portfolio
+
 services:
-  web:
+  personal-portfolio:
     build: .
+    container_name: personal-portfolio
     ports:
-      - "8084:80"
+      - "127.0.0.1:${HOST_PORT:-8081}:80"
     environment:
-      PORT: 80
-      HOST: 0.0.0.0
-      BASE: /
+      PORT: ${PORT:-80}
       NODE_ENV: production
     restart: unless-stopped
