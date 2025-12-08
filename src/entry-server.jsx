@@ -60,7 +60,7 @@ export function render(url) {
 
 function buildDefaultHead() {
   return `
-    <title>${defaultTitle}AAA</title>
+    <title>${defaultTitle}</title>
     <meta name="description" content="${escapeAttr(defaultDescription)}" />
     <meta name="robots" content="index,follow" />
     <meta property="og:title" content="${escapeAttr(defaultTitle)}" />
