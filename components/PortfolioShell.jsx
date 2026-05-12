@@ -1,3 +1,4 @@
+import content from '@content/en'
 import WorkSection from '@components/sections/WorkSection'
 import AboutSection from '@components/sections/AboutSection'
 import ExperienceSection from '@components/sections/ExperienceSection'
@@ -84,9 +85,46 @@ const PortfolioShell = ({ posts }) => (
 
     {/* ── FOOTER ────────────────────────────────────── */}
     <footer className="site-footer">
-      <div className="footer-logo">nemanjas<span>.dev</span></div>
-      <div className="footer-copy">© 2026 · All rights reserved</div>
-      <a href="#" className="footer-back">Back to top ↑</a>
+      <div className="footer-cols">
+        <div>
+          <a href="#" className="footer-logo">nemanjas<span>.dev</span></a>
+          <p className="footer-tagline">
+            Full-stack developer building software that ships.
+            Available for freelance &amp; full-time.
+          </p>
+        </div>
+        <div>
+          <div className="footer-col-label">Navigation</div>
+          <nav className="footer-col-links">
+            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#blog">Blog</a>
+            <a href="#contact">Contact</a>
+          </nav>
+        </div>
+        <div>
+          <div className="footer-col-label">Contact</div>
+          <div className="footer-col-links">
+            <a href={`mailto:${content.contact.email}`}>{content.contact.email}</a>
+            <a href={content.contact.githubHref} target="_blank" rel="noreferrer">{content.contact.github}</a>
+            <a href={content.contact.linkedinHref} target="_blank" rel="noreferrer">{content.contact.linkedin}</a>
+          </div>
+        </div>
+        <div>
+          <div className="footer-col-label">AI</div>
+          <div className="footer-col-links">
+            <a href="https://claude.ai" target="_blank" rel="noreferrer">Claude</a>
+            <a href="https://cursor.com" target="_blank" rel="noreferrer">Cursor</a>
+            <a href="https://github.com/features/copilot" target="_blank" rel="noreferrer">GitHub Copilot</a>
+            <a href="https://openai.com" target="_blank" rel="noreferrer">ChatGPT</a>
+          </div>
+        </div>
+      </div>
+      <div className="footer-bottom">
+        <div className="footer-copy">© 2026 Nemanja Savatic · All rights reserved</div>
+        <a href="#" className="footer-back">Back to top ↑</a>
+      </div>
     </footer>
   </>
 )
