@@ -55,7 +55,7 @@ jobs:
       - name: Prepare deployment package
         run: |
           mkdir deploy
-          rsync -av --exclude='.git' --exclude='node_modules' ./ deploy/
+          rsync -av --exclude='.git' --exclude='node_modules' --exclude='.next' ./ deploy/
           tar -czf app.tar.gz -C deploy .
 
       - name: Upload package to VPS
