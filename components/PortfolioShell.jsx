@@ -13,21 +13,23 @@ const PortfolioShell = ({ posts }) => (
   <>
     {/* ── HERO ──────────────────────────────────────── */}
     <div className="hero">
-      <div className="hero-watermark" aria-hidden="true">N</div>
-
       <div className="hero-left">
-        <div className="hero-tag">Software Developer · Solution Implementer</div>
-        <div className="hero-name">nemanjas</div>
-        <div className="hero-name-dev">.dev</div>
-        <div className="hero-rule" />
+        <h1 className="hero-headline">
+          I Build<br />
+          Software<br />
+          That <em>Ships.</em>
+        </h1>
         <p className="hero-desc">
-          I build software that solves real problems.<br />
-          From architecture to deployment — full ownership,<br />
-          clean code, and solutions that actually ship.
+          Full-stack developer with 5+ years turning ideas into production-ready products.
+          Clean code, great UX, and solutions that actually work.
         </p>
         <div className="hero-actions">
-          <a href="#work" className="btn-primary">View Work</a>
-          <a href="#contact" className="btn-ghost">Get in touch</a>
+          <a href="#work" className="btn-primary">View Work →</a>
+          <a href="#contact" className="btn-outline">Get in touch</a>
+        </div>
+        <div className="hero-scroll" aria-hidden="true">
+          <span>Scroll Down</span>
+          <div className="hero-scroll-circle">↓</div>
         </div>
       </div>
 

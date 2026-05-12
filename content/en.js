@@ -82,11 +82,11 @@ const content = {
   },
   contact: {
     email: 'savatic.nemanja@gmail.com',
-    github: 'github.com/nsavatic',
-    githubHref: 'https://github.com/nsavatic',
-    linkedin: 'linkedin.com/in/nemanjas',
-    linkedinHref: 'https://linkedin.com/in/nemanjas',
-    calLink: 'nemanjas',
+    github: 'github.com/savaticnemanja',
+    githubHref: 'https://github.com/savaticnemanja',
+    linkedin: 'linkedin.com/in/savaticnemanja',
+    linkedinHref: 'https://linkedin.com/in/savaticnemanja',
+    calLink: 'savaticnemanja',
     calOrigin: 'https://cal.eu',
   },
 }

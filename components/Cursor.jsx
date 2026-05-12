@@ -7,6 +7,7 @@ export default function Cursor() {
     if (!el) return
 
     const onMove = (e) => {
+      el.style.opacity = '1'
       el.style.left = e.clientX + 'px'
       el.style.top = e.clientY + 'px'
     }
