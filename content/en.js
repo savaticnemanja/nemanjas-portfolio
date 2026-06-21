@@ -6,9 +6,10 @@ const content = {
         company: 'Arrowhead Development',
         period: 'January 2023 — Present',
         bullets: [
-          'Lead accessible product experiences for mission-driven teams.',
-          'Architected and shipped a multi-tenant SaaS platform serving 10,000+ users.',
-          'Introduced automated CI/CD pipelines, cutting deployment time by 60%.',
+          'Embedded with a top-tier fintech client to develop, maintain, and customize the world\'s leading anti-money-laundering (AML) platform by market share.',
+          'Built and extended frontend modules with Vue.js in a micro-frontend architecture, integrating with backends across MSSQL, PostgreSQL, and OracleDB.',
+          'Owned architecture and delivery for customer-facing modules, reducing defect rates and review cycles through TDD and rigorous code review.',
+          'Mentored engineers and led code reviews, contributing to CI/CD pipelines (Jenkins) and AWS deployments for a high-reliability platform serving financial institutions worldwide.',
         ],
       },
       {
@@ -16,9 +17,9 @@ const content = {
         company: 'UnderIT',
         period: 'April 2021 — January 2023',
         bullets: [
-          'Built and maintained marketing sites with headless CMS workflows.',
-          'Integrated third-party APIs for e-commerce, analytics, and payments.',
-          'Mentored two junior developers and led bi-weekly code review sessions.',
+          'Built full-stack web applications and internal tools for international clients, owning features across the frontend, API, and database layers.',
+          'Developed responsive, accessible UIs in React and Vue, backed by Node.js REST APIs and SQL databases.',
+          'Introduced CI/CD automation and containerized deployments, cutting release time and improving delivery reliability.',
         ],
       },
     ],
@@ -65,10 +66,11 @@ const content = {
   },
   skills: {
     categories: [
-      { label: 'Languages',  items: ['JavaScript', 'TypeScript', 'Python', 'SQL', 'HTML', 'CSS'] },
-      { label: 'Frontend',   items: ['React', 'Next.js', 'Tailwind CSS', 'SCSS', 'Framer Motion'] },
-      { label: 'Backend',    items: ['Node.js', 'Express', 'PostgreSQL', 'Redis', 'REST', 'GraphQL'] },
-      { label: 'Tools',      items: ['Docker', 'Git', 'Linux', 'GitHub Actions', 'Vercel', 'AWS'] },
+      { label: 'Frontend',   items: ['JavaScript', 'TypeScript', 'React', 'Next.js', 'Vue.js', 'Tailwind CSS', 'SCSS'] },
+      { label: 'Backend',    items: ['Node.js', 'REST APIs', 'GraphQL', 'WebSockets', 'JWT/OAuth', 'Microservices'] },
+      { label: 'Databases',  items: ['PostgreSQL', 'MySQL', 'OracleDB', 'MongoDB', 'Prisma'] },
+      { label: 'Cloud & DevOps', items: ['AWS', 'Docker', 'Linux', 'Nginx', 'Jenkins', 'GitHub Actions', 'CI/CD'] },
+      { label: 'Testing',    items: ['Jest', 'Vitest', 'Cypress', 'Playwright', 'TDD'] },
     ],
   },
   blog: {
