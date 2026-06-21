@@ -14,6 +14,7 @@ const PortfolioShell = ({ posts }) => (
   <>
     {/* ── HERO ──────────────────────────────────────── */}
     <div className="hero">
+      <div className="hero-watermark" aria-hidden="true">NS</div>
       <div className="hero-left">
         <h1 className="hero-headline">
           I Build<br />

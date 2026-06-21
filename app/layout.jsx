@@ -1,6 +1,8 @@
 import './globals.css'
 import Nav from '@components/Nav'
 import Cursor from '@components/Cursor'
+import ScrollProgress from '@components/ScrollProgress'
+import ScrollReveal from '@components/ScrollReveal'
 
 export const metadata = {
   title: 'nemanjas.dev — Software Developer',
@@ -20,9 +22,11 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
+        <ScrollProgress />
         <Cursor />
         <Nav />
         {children}
+        <ScrollReveal />
       </body>
     </html>
   )

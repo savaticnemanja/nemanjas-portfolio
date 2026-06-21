@@ -5,7 +5,7 @@ const AboutSection = () => {
 
   return (
     <>
-      <div className="section-header">
+      <div className="section-header" data-reveal>
         <div>
           <div className="section-label">About</div>
           <div className="section-title">Who I <em>Am</em></div>
@@ -13,7 +13,7 @@ const AboutSection = () => {
       </div>
 
       <div className="about-grid">
-        <div className="about-text">
+        <div className="about-text" data-reveal>
           <p>
             I&apos;m <strong>Nemanja Savatic</strong>, a software developer and solution implementer
             based online at <strong>nemanjas.dev</strong>. I specialise in turning complex
@@ -31,7 +31,7 @@ const AboutSection = () => {
           </p>
         </div>
 
-        <div>
+        <div data-reveal data-delay="1">
           {skills.categories.map((cat) => (
             <div key={cat.label} className="skill-group">
               <div className="skill-group-label">{cat.label}</div>

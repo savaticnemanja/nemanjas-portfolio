@@ -6,7 +6,7 @@ const WorkSection = () => {
 
   return (
     <>
-      <div className="section-header">
+      <div className="section-header" data-reveal>
         <div>
           <div className="section-label">Selected Work</div>
           <div className="section-title">Recent <em>Projects</em></div>
@@ -20,6 +20,7 @@ const WorkSection = () => {
           target="_blank"
           rel="noreferrer"
           className="project-card project-card--featured"
+          data-reveal
         >
           <span className="project-arrow" aria-hidden="true">↗</span>
           <div>
@@ -57,6 +58,8 @@ const WorkSection = () => {
             target="_blank"
             rel="noreferrer"
             className="project-card"
+            data-reveal
+            data-delay={String((idx % 2) + 1)}
           >
             <span className="project-arrow" aria-hidden="true">↗</span>
             <div className="project-number">0{idx + 2}</div>

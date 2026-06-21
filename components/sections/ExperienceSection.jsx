@@ -10,7 +10,7 @@ const ExperienceSection = () => {
 
   return (
     <>
-      <div className="section-header">
+      <div className="section-header" data-reveal>
         <div>
           <div className="section-label">Experience</div>
           <div className="section-title">Where I&apos;ve <em>Worked</em></div>
@@ -19,7 +19,7 @@ const ExperienceSection = () => {
 
       <div className="timeline">
         {experience.positions.map((pos, idx) => (
-          <div key={idx} className="timeline-item">
+          <div key={idx} className="timeline-item" data-reveal data-delay={String(idx + 1)}>
             <div className="timeline-period">{shortenPeriod(pos.period)}</div>
             <div className="timeline-dot" aria-hidden="true" />
             <div>
