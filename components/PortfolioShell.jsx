@@ -17,7 +17,7 @@ const PortfolioShell = ({ posts }) => (
       <div className="hero-watermark" aria-hidden="true">NS</div>
       <div className="hero-left">
         <h1 className="hero-headline">
-          I Build<br />
+          I Develop<br />
           Software<br />
           That <em>Ships.</em>
         </h1>
