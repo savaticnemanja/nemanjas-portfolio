@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- The mark from components/Nav.jsx, scaled 24 -> 32 and given the black
+       field the site is always designed on. Proportions match the PWA icons in
+       public/icons, so the tab, the home screen and the install prompt all show
+       the same thing. -->
+  <rect width="32" height="32" fill="#000000"/>
+  <rect x="4" y="4" width="24" height="24" rx="6.5" fill="none" stroke="#C8FF00" stroke-width="3.4"/>
+  <path d="M11 21 21 11" stroke="#C8FF00" stroke-width="3.4" stroke-linecap="round"/>
+</svg>

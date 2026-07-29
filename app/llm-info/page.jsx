@@ -1,6 +1,28 @@
+import { Reveal, Stagger } from '@components/motion'
+import { SITE, OG_IMAGE } from '@lib/site'
+
+const DESCRIPTION =
+  'The AI tools used to design and develop nemanjas.dev, and how they fit into the workflow.'
+
 export const metadata = {
-  title: 'LLM Info · nemanjas.dev',
-  description: 'Information about AI tools and LLMs used in this portfolio.',
+  title: 'Built with AI',
+  description: DESCRIPTION,
+  alternates: { canonical: '/llm-info' },
+  openGraph: {
+    type: 'article',
+    title: 'Built with AI',
+    description: DESCRIPTION,
+    url: '/llm-info',
+    siteName: SITE.name,
+    locale: SITE.locale,
+    images: [OG_IMAGE],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Built with AI',
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
 }
 
 const tools = [
@@ -32,44 +54,44 @@ const tools = [
 
 export default function LlmInfoPage() {
   return (
-    <main className="llm-info-page">
-      <div className="llm-info-inner">
-        <div className="llm-info-header">
-          <div className="section-label">// AI &amp; LLMs</div>
-          <h1 className="llm-info-title">Built with AI</h1>
-          <p className="llm-info-lead">
-            This site was designed and developed with the assistance of large language models.
-            Below is a transparent breakdown of the tools used and how they fit into the workflow.
-          </p>
-        </div>
+    <div className="page plain">
+      <Reveal className="plain-header">
+        <p className="eyebrow">Colophon</p>
+        <h1 className="plain-title">Built with AI</h1>
+        <p className="plain-lead">
+          This site was designed and developed with the assistance of large language
+          models. Below is a transparent breakdown of the tools used and how they fit
+          into the workflow.
+        </p>
+      </Reveal>
 
-        <div className="llm-info-grid">
-          {tools.map((tool) => (
-            <a
-              key={tool.name}
-              href={tool.href}
-              target="_blank"
-              rel="noreferrer"
-              className="llm-tool-card"
-            >
-              <div className="llm-tool-top">
-                <span className="llm-tool-name">{tool.name}</span>
-                <span className="llm-tool-by">{tool.by}</span>
-              </div>
-              <p className="llm-tool-use">{tool.use}</p>
-              <span className="llm-tool-arrow">↗</span>
-            </a>
-          ))}
-        </div>
+      <Stagger className="tool-grid">
+        {tools.map((tool) => (
+          <a
+            key={tool.name}
+            href={tool.href}
+            target="_blank"
+            rel="noreferrer"
+            className="tool-card"
+          >
+            <span className="tool-card-top">
+              <span className="tool-card-name">{tool.name}</span>
+              <span className="tool-card-by">{tool.by}</span>
+            </span>
+            <span className="tool-card-use">{tool.use}</span>
+            <span className="tool-card-arrow" aria-hidden="true">↗</span>
+          </a>
+        ))}
+      </Stagger>
 
-        <div className="llm-info-note">
-          <span className="section-label">// Note</span>
-          <p>
-            All content, decisions, and final implementations are reviewed and owned by the developer.
-            AI is used as a tool to move faster — not as a replacement for engineering judgement.
-          </p>
-        </div>
-      </div>
-    </main>
+      <Reveal className="plain-note">
+        <p className="eyebrow">Note</p>
+        <p>
+          All content, decisions, and final implementations are reviewed and owned by
+          the developer. AI is used as a tool to move faster — not as a replacement for
+          engineering judgement.
+        </p>
+      </Reveal>
+    </div>
   )
 }

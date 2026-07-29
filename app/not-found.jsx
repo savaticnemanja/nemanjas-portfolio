@@ -1,40 +1,22 @@
+export const metadata = {
+  title: 'Page not found',
+  // A 404 body has nothing worth indexing, and every wrong URL would otherwise
+  // be a candidate index entry.
+  robots: { index: false, follow: true },
+}
+
 export default function NotFound() {
   return (
-    <main style={{ padding: '140px 48px 100px', maxWidth: '600px', margin: '0 auto' }}>
-      <div style={{
-        fontFamily: 'var(--font-mono)',
-        fontSize: '9px',
-        letterSpacing: '4px',
-        textTransform: 'uppercase',
-        color: 'var(--lime)',
-        marginBottom: '16px',
-      }}>
-        404
-      </div>
-      <h1 style={{
-        fontFamily: 'var(--font-display)',
-        fontSize: 'clamp(32px, 5vw, 56px)',
-        fontWeight: 800,
-        letterSpacing: '-2px',
-        color: 'var(--white)',
-        marginBottom: '24px',
-        lineHeight: 1,
-      }}>
-        Page not found.
-      </h1>
-      <a href="/" style={{
-        fontFamily: 'var(--font-mono)',
-        fontSize: '10px',
-        letterSpacing: '3px',
-        textTransform: 'uppercase',
-        color: 'var(--text2)',
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: '8px',
-        transition: 'color 0.2s',
-      }}>
-        ← Back to portfolio
-      </a>
-    </main>
+    <div className="page notfound">
+      <p className="eyebrow">Error 404</p>
+      <h1 className="plain-title">This page doesn&apos;t exist.</h1>
+      <p className="plain-lead">
+        The link is either wrong or the page has moved. Everything that is still here
+        is one click away.
+      </p>
+      <p style={{ marginTop: '2.5rem' }}>
+        <a href="/" className="btn btn--outline">← Back to portfolio</a>
+      </p>
+    </div>
   )
 }

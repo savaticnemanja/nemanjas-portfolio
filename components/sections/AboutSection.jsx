@@ -1,49 +1,94 @@
 import content from '@content/en'
+import { Reveal } from '@components/motion'
 
 const AboutSection = () => {
-  const { skills } = content
+  const { skills, profile, education } = content
 
   return (
     <>
-      <div className="section-header">
+      <Reveal className="section-header">
         <div>
-          <div className="section-label">About</div>
-          <div className="section-title">Who I <em>Am</em></div>
+          <p className="eyebrow">02 — About</p>
+          <h2 id="about-heading" className="section-title">
+            Who I <em>am</em>
+          </h2>
         </div>
-      </div>
+      </Reveal>
 
-      <div className="about-grid">
-        <div className="about-text">
-          <p>
-            I&apos;m <strong>Nemanja Savatic</strong>, a software developer and solution implementer
-            based online at <strong>nemanjas.dev</strong>. I specialise in turning complex
-            problems into clean, maintainable systems.
-          </p>
-          <p>
-            I work across the full stack — from designing database schemas and API contracts
-            to shipping polished frontends. I care about <strong>code quality, developer
-            experience,</strong> and solutions that are built to last.
-          </p>
-          <p>
-            Currently open to <strong>freelance projects</strong> and{' '}
-            <strong>full-time opportunities</strong> where I can own meaningful problems
-            end-to-end.
-          </p>
+      <Reveal className="card about-card">
+        <div className="about-grid">
+          <div className="about-text">
+            <p>
+              I&apos;m <strong>Nemanja Savatić</strong>, a full-stack software engineer with
+              5+ years building reliable, end-to-end products across the frontend, backend
+              and cloud. I design clean architectures, ship maintainable code, and care
+              about <strong>performance, security</strong> and developer experience.
+            </p>
+            <p>
+              Much of my work is in <strong>fintech</strong>. I currently develop, maintain
+              and customize the leading anti-money-laundering platform by market share for a
+              top-tier client — owning architecture decisions, mentoring peers, and
+              delivering complex systems in pension management, digital banking and
+              financial crime prevention with international teams.
+            </p>
+            <p>
+              What ties it together is turning ambiguous requirements into clean, scalable
+              solutions. Currently open to <strong>{profile.availability.toLowerCase()}</strong>{' '}
+              where I can own meaningful problems end-to-end.
+            </p>
+          </div>
+
+          {/* The spec sheet. Everything here is a fact from the CV, set as a
+              definition list so it reads as data rather than as more prose. */}
+          <dl className="facts">
+            <div>
+              <dt>Based</dt>
+              <dd>{profile.location}</dd>
+            </div>
+            <div>
+              <dt>Role</dt>
+              <dd>{profile.role}</dd>
+            </div>
+            <div>
+              <dt>Focus</dt>
+              <dd>{profile.focus}</dd>
+            </div>
+            <div>
+              <dt>Education</dt>
+              <dd>
+                {education.map((item) => (
+                  <span key={item.degree} className="facts-line">
+                    {item.degree}
+                    <i>{item.period.replace(/[A-Za-z]+ /g, '')}</i>
+                  </span>
+                ))}
+                <span className="facts-note">{education[0].school}</span>
+              </dd>
+            </div>
+            <div>
+              <dt>Languages</dt>
+              <dd>{profile.languages}</dd>
+            </div>
+            <div>
+              <dt>Available</dt>
+              <dd>{profile.availability}</dd>
+            </div>
+          </dl>
         </div>
 
-        <div>
+        <div className="about-skills">
           {skills.categories.map((cat) => (
             <div key={cat.label} className="skill-group">
-              <div className="skill-group-label">{cat.label}</div>
+              <h3 className="skill-group-label">{cat.label}</h3>
               <div className="skill-pills">
                 {cat.items.map((item) => (
-                  <span key={item} className="skill-pill">{item}</span>
+                  <span key={item} className="tag skill-pill">{item}</span>
                 ))}
               </div>
             </div>
           ))}
         </div>
-      </div>
+      </Reveal>
     </>
   )
 }

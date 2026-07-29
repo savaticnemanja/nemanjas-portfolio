@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import hljs from 'highlight.js/lib/core'
 import javascript from 'highlight.js/lib/languages/javascript'
 import typescript from 'highlight.js/lib/languages/typescript'
@@ -34,82 +34,100 @@ const formatDate = (value) => {
 }
 
 const BlogArticleClient = ({ post }) => {
-  const [progress, setProgress] = useState(0)
+  const barRef = useRef(null)
+  const bodyRef = useRef(null)
+  const frame = useRef(0)
 
+  // The bar is written to directly rather than held in state: this fires on
+  // every scroll frame, and a re-render per frame to move one element is a
+  // waste of the main thread.
   useEffect(() => {
-    const updateProgress = () => {
+    const bar = barRef.current
+    if (!bar) return
+
+    const read = () => {
+      frame.current = 0
       const root = document.scrollingElement ?? document.documentElement
-      const maxScroll = Math.max(0, root.scrollHeight - root.clientHeight)
-      setProgress(maxScroll > 0 ? (root.scrollTop / maxScroll) * 100 : 0)
+      const max = Math.max(0, root.scrollHeight - root.clientHeight)
+      bar.style.transform = `scaleX(${max > 0 ? root.scrollTop / max : 0})`
     }
-    updateProgress()
-    window.addEventListener('scroll', updateProgress, { passive: true })
-    return () => window.removeEventListener('scroll', updateProgress)
+    const onScroll = () => {
+      if (!frame.current) frame.current = requestAnimationFrame(read)
+    }
+
+    read()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      cancelAnimationFrame(frame.current)
+    }
   }, [])
 
   useEffect(() => {
-    if (!post) return
-    const root = document.querySelector('.article-body')
+    const root = bodyRef.current
     if (!root) return
     root.querySelectorAll('pre code').forEach((block) => {
       if (block instanceof HTMLElement) hljs.highlightElement(block)
+    })
+    // A code block that scrolls sideways can only be reached with a pointer
+    // unless it can take focus — on a phone every one of these overflows.
+    root.querySelectorAll('pre').forEach((pre) => {
+      pre.tabIndex = 0
     })
   }, [post])
 
   if (!post) {
     return (
-      <main className="article-page">
-        <a href="/" className="article-back">Home</a>
-        <h1 className="article-title">Article not found</h1>
-      </main>
+      <div className="page">
+        <div className="article">
+          <a href="/#blog" className="article-back">Back to writing</a>
+          <header className="article-header">
+            <h1 className="article-title">Article not found</h1>
+          </header>
+        </div>
+      </div>
     )
   }
 
   return (
     <>
-      {/* Scroll progress bar */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          height: '2px',
-          width: `${progress}%`,
-          background: 'var(--lime)',
-          zIndex: 200,
-          transition: 'width 0.1s linear',
-        }}
-      />
+      <div ref={barRef} className="progress" aria-hidden="true" />
 
-      <main className="article-page">
-        <a href="/" className="article-back">Back to portfolio</a>
+      <div className="page">
+        <article className="article">
+          <a href="/#blog" className="article-back">Back to writing</a>
 
-        <div className="article-meta">
-          {formatDate(post.date) && <span>{formatDate(post.date)}</span>}
-          {post.readingTime && (
-            <>
-              <span style={{ color: 'var(--lime)' }}>·</span>
-              <span>{post.readingTime} min read</span>
-            </>
-          )}
-        </div>
+          <header className="article-header">
+            <p className="article-meta">
+              {formatDate(post.date) && (
+                <time dateTime={post.date}>{formatDate(post.date)}</time>
+              )}
+              {post.date && post.readingTime ? <i>/</i> : null}
+              {post.readingTime ? <span>{post.readingTime} min read</span> : null}
+            </p>
 
-        <h1 className="article-title">{post.title}</h1>
+            <h1 className="article-title">{post.title}</h1>
 
-        {post.tags?.length ? (
-          <div className="article-tags">
-            {post.tags.map((tag) => (
-              <span key={tag} className="article-tag">{tag}</span>
-            ))}
-          </div>
-        ) : null}
+            {post.tags?.length ? (
+              <div className="article-tags">
+                {post.tags.map((tag) => (
+                  <span key={tag} className="tag">{tag}</span>
+                ))}
+              </div>
+            ) : null}
+          </header>
 
-        <article
-          className="article-body"
-          dangerouslySetInnerHTML={{ __html: post.html }}
-        />
-      </main>
+          {/* Rendered by lib/posts.js from local markdown; the renderer
+              escapes everything it does not emit itself. */}
+          <div
+            ref={bodyRef}
+            className="article-body"
+            dangerouslySetInnerHTML={{ __html: post.html }}
+          />
+        </article>
+      </div>
     </>
   )
 }

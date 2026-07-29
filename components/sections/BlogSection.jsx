@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import content from '@content/en'
+import { Reveal, Stagger } from '@components/motion'
 
 const monthNames = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -46,16 +47,22 @@ const BlogSection = ({ posts }) => {
 
   return (
     <>
-      <div className="section-header">
+      <Reveal className="section-header">
         <div>
-          <div className="section-label">Writing</div>
-          <div className="section-title">From the <em>Blog</em></div>
+          <p className="eyebrow">04 — Writing</p>
+          <h2 id="blog-heading" className="section-title">
+            From the <em>blog</em>
+          </h2>
         </div>
-      </div>
+        <p className="section-note">
+          Notes on the things I had to work out the hard way, written down so the
+          next person doesn&apos;t have to.
+        </p>
+      </Reveal>
 
       {posts.length > 0 ? (
         <>
-          <div className="blog-controls">
+          <Reveal className="blog-controls">
             <div className="blog-controls-row">
               <input
                 id="blog-search"
@@ -63,7 +70,7 @@ const BlogSection = ({ posts }) => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search articles…"
-                className="blog-search-input"
+                className="blog-search"
                 aria-label={blog.searchLabel}
               />
             </div>
@@ -71,8 +78,8 @@ const BlogSection = ({ posts }) => {
               <div className="blog-controls-row" role="group" aria-label={blog.filtersLabel}>
                 <button
                   type="button"
-                  className="blog-filter-btn"
-                  data-active={activeTag === 'all'}
+                  className="blog-filter"
+                  aria-pressed={activeTag === 'all'}
                   onClick={() => setActiveTag('all')}
                 >
                   All
@@ -81,8 +88,8 @@ const BlogSection = ({ posts }) => {
                   <button
                     key={tag}
                     type="button"
-                    className="blog-filter-btn"
-                    data-active={activeTag === tag}
+                    className="blog-filter"
+                    aria-pressed={activeTag === tag}
                     onClick={() => setActiveTag(tag)}
                   >
                     {tag}
@@ -90,45 +97,60 @@ const BlogSection = ({ posts }) => {
                 ))}
               </div>
             )}
-          </div>
+          </Reveal>
 
-          <div className="blog-grid">
-            {filteredPosts.length > 0 ? (
-              filteredPosts.map((post, idx) => (
+          {filteredPosts.length > 0 ? (
+            /* Keyed on the filter so a new set animates in rather than
+               swapping under a container that has already been revealed. */
+            <Stagger key={`${activeTag}:${normalizedQuery}`} className="blog-grid">
+              {filteredPosts.map((post, idx) => (
                 <article key={post.slug} className="blog-card">
-                  <div className="blog-card-number">
-                    0{idx + 1} {post.readingTime ? `· ${post.readingTime} min read` : ''}
-                  </div>
-                  <div className="blog-card-title">{post.title}</div>
+                  <p className="blog-card-meta">
+                    <span className="num">{String(idx + 1).padStart(2, '0')}</span>
+                    {post.readingTime ? (
+                      <>
+                        <i>/</i>
+                        <span>{post.readingTime} min read</span>
+                      </>
+                    ) : null}
+                  </p>
+
+                  <h3 className="blog-card-title">{post.title}</h3>
+
                   {post.date && (
-                    <div className="blog-card-meta">{formatDate(post.date)}</div>
+                    <p className="blog-card-meta" style={{ marginTop: '0.5rem' }}>
+                      <time dateTime={post.date}>{formatDate(post.date)}</time>
+                    </p>
                   )}
-                  {post.tags?.length ? (
-                    <div className="blog-card-tags">
-                      {post.tags.map((tag) => (
-                        <span key={tag} className="blog-card-tag">{tag}</span>
-                      ))}
-                    </div>
-                  ) : null}
+
                   {(post.description ?? post.excerpt) && (
                     <p className="blog-card-desc">{post.description ?? post.excerpt}</p>
                   )}
-                  <a href={post.url} className="blog-card-link">{blog.readMore}</a>
+
+                  {post.tags?.length ? (
+                    <div className="blog-card-tags">
+                      {post.tags.map((tag) => (
+                        <span key={tag} className="tag">{tag}</span>
+                      ))}
+                    </div>
+                  ) : null}
+
+                  <a href={post.url} className="blog-card-link">
+                    {blog.readMore}
+                  </a>
                 </article>
-              ))
-            ) : (
-              <div className="blog-empty">
-                <div className="blog-card-title" style={{ marginBottom: '8px' }}>
-                  {blog.emptyFilteredTitle}
-                </div>
-                <p>{blog.emptyFilteredDescription}</p>
-              </div>
-            )}
-          </div>
+              ))}
+            </Stagger>
+          ) : (
+            <div className="blog-empty">
+              <h3>{blog.emptyFilteredTitle}</h3>
+              <p>{blog.emptyFilteredDescription}</p>
+            </div>
+          )}
         </>
       ) : (
         <div className="blog-empty">
-          <div className="blog-card-title" style={{ marginBottom: '8px' }}>{blog.emptyTitle}</div>
+          <h3>{blog.emptyTitle}</h3>
           <p>{blog.emptyDescription}</p>
         </div>
       )}

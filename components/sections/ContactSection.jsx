@@ -1,57 +1,52 @@
 import content from '@content/en'
+import { Reveal } from '@components/motion'
 
 const ContactSection = () => {
   const { contact } = content
 
-  return (
-    <div className="contact-section" id="contact">
-      <div className="contact-inner">
-        <div>
-          <div className="section-label" style={{ marginBottom: '20px' }}>Contact</div>
-          <div className="contact-headline">
-            Let&apos;s build<br />something <em>great</em>
-          </div>
-        </div>
+  const rows = [
+    { label: 'Email', value: contact.email, href: `mailto:${contact.email}` },
+    { label: 'GitHub', value: contact.github, href: contact.githubHref, external: true },
+    { label: 'LinkedIn', value: contact.linkedin, href: contact.linkedinHref, external: true },
+    {
+      label: 'Booking',
+      value: 'Book a call →',
+      href: `${contact.calOrigin}/${contact.calLink}`,
+      external: true,
+    },
+  ]
 
-        <div className="contact-details">
-          <a href={`mailto:${contact.email}`} className="contact-row">
-            <span className="contact-row-label">Email</span>
-            <span className="contact-row-value">{contact.email}</span>
-          </a>
-          <a
-            href={contact.githubHref}
-            target="_blank"
-            rel="noreferrer"
-            className="contact-row"
-          >
-            <span className="contact-row-label">GitHub</span>
-            <span className="contact-row-value">{contact.github}</span>
-          </a>
-          <a
-            href={contact.linkedinHref}
-            target="_blank"
-            rel="noreferrer"
-            className="contact-row"
-          >
-            <span className="contact-row-label">LinkedIn</span>
-            <span className="contact-row-value">{contact.linkedin}</span>
-          </a>
-          <a
-            href={`${contact.calOrigin}/${contact.calLink}`}
-            target="_blank"
-            rel="noreferrer"
-            className="contact-row"
-          >
-            <span className="contact-row-label">Booking</span>
-            <span className="contact-row-value">Book a call →</span>
-          </a>
-          <div className="contact-row">
-            <span className="contact-row-label">Location</span>
-            <span className="contact-row-value">Remote · Available globally</span>
-          </div>
+  return (
+    <section id="contact" className="contact" aria-labelledby="contact-heading">
+      <div className="page">
+        <div className="contact-grid">
+          <Reveal>
+            <p className="eyebrow">05 — Contact</p>
+            <h2 id="contact-heading" className="contact-headline">
+              Let&apos;s build something <em>great</em>
+            </h2>
+          </Reveal>
+
+          <Reveal delay={0.1} className="contact-rows">
+            {rows.map((row) => (
+              <a
+                key={row.label}
+                href={row.href}
+                className="contact-row"
+                {...(row.external ? { target: '_blank', rel: 'noreferrer' } : {})}
+              >
+                <span className="contact-row-label">{row.label}</span>
+                <span className="contact-row-value">{row.value}</span>
+              </a>
+            ))}
+            <p className="contact-row">
+              <span className="contact-row-label">Location</span>
+              <span className="contact-row-value">{contact.location}</span>
+            </p>
+          </Reveal>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 
