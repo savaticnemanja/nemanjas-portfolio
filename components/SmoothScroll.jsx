@@ -10,9 +10,8 @@ import { useEffect } from 'react'
  * it — animating a scroll the finger is still driving reads as lag, not as
  * smoothness — and the keyboard, scrollbar drags and fragment jumps all stay
  * native. That last one matters most here: the nav's `#work`-style links are
- * fragment navigations, so they keep the browser's own smooth scroll, keep
- * honouring `scroll-padding-top` for the sticky header, and keep moving focus
- * the way the skip link needs.
+ * fragment navigations, so they keep the browser's own smooth scroll and keep
+ * honouring `scroll-padding-top` for the sticky header.
  *
  * Nothing else on the site has to know this is here. Lenis follows the
  * document's real scroll position rather than replacing it with a transform, so

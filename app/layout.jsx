@@ -96,8 +96,6 @@ export default function RootLayout({ children }) {
         <div className="grid-lines" aria-hidden="true" />
         <Cursor />
 
-        <a href="#main" className="skip-link">Skip to content</a>
-
         <Nav />
         <main id="main">{children}</main>
         <SiteFooter />
