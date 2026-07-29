@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react'
 import content from '@content/en'
 import { Reveal, Stagger } from '@components/motion'
+import NewsletterForm from '@components/NewsletterForm'
 
 const monthNames = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -16,7 +17,7 @@ const formatDate = (value) => {
   return `${monthNames[month - 1]} ${day}, ${year}`
 }
 
-const BlogSection = ({ posts, newsletter = null }) => {
+const BlogSection = ({ posts }) => {
   const { blog } = content
   const [searchQuery, setSearchQuery] = useState('')
   const [activeTag, setActiveTag] = useState('all')
@@ -154,7 +155,7 @@ const BlogSection = ({ posts, newsletter = null }) => {
         <div className="blog-empty">
           <h3>{blog.emptyTitle}</h3>
           <p>{blog.emptyDescription}</p>
-          {newsletter}
+          <NewsletterForm />
         </div>
       )}
     </>

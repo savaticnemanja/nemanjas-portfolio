@@ -175,18 +175,43 @@ const content = {
     inputLabel: 'Email address',
     placeholder: 'you@example.com',
     cta: 'Notify me',
-    // Shown in place of the working form when NEWSLETTER_ENDPOINT is unset, so
-    // the box is never a field that silently goes nowhere. Split around the link
-    // rather than one string the component picks apart, which would break the
-    // moment the wording changed.
-    unavailable: {
-      before: 'Sign-ups open shortly — in the meantime, ',
-      linkText: 'email me',
-      after: ' and I will add you by hand.',
+    sending: 'Adding…',
+    success: "You're on the list. The first article will find you.",
+    errors: {
+      email: 'That email address does not look right.',
+      failed: 'That did not go through. You can reach me at',
+    },
+  },
+
+  contactForm: {
+    heading: 'Send a message',
+    description: 'Tell me what you are building and roughly where it is. I answer everything.',
+    nameLabel: 'Name',
+    namePlaceholder: 'Your name',
+    emailLabel: 'Email',
+    emailPlaceholder: 'you@example.com',
+    messageLabel: 'Message',
+    messagePlaceholder: 'What are you working on?',
+    cta: 'Send message',
+    sending: 'Sending…',
+    success: "Thanks — that's with me. I'll come back to you within a day or two.",
+    errors: {
+      name: 'Please add your name so I know who I am replying to.',
+      nameLong: 'That name is longer than this form can take.',
+      email: 'That email address does not look right.',
+      messageShort: 'A couple more words would help — ten characters minimum.',
+      messageLong: 'That message is too long to send from here. Email it instead.',
+      failed: 'That did not send. You can reach me at',
+      unconfigured: 'The form is not wired up yet. In the meantime, email me at',
     },
   },
 
   contact: {
+    eyebrow: '05 — Contact',
+    headline: {
+      lead: "Let's build",
+      emphasis: 'something great',
+    },
     email: 'savatic.nemanja@gmail.com',
     github: 'github.com/savaticnemanja',
     githubHref: 'https://github.com/savaticnemanja',
@@ -195,6 +220,26 @@ const content = {
     location: 'Novi Sad, Serbia · Remote & hybrid',
     calLink: 'savaticnemanja',
     calOrigin: 'https://cal.eu',
+
+    /* The rail shows the handle rather than the URL. `github.com/` in front of a
+       username is nine characters that say nothing the icon has not already
+       said, and the full form wraps on a phone. The href keeps the whole
+       address; only the label is short. `aria` is what a screen reader gets,
+       where there is no icon to supply the context. */
+    handles: {
+      email: 'savatic.nemanja',
+      github: 'savaticnemanja',
+      linkedin: 'savaticnemanja',
+      booking: 'Book a call',
+      location: 'Novi Sad, Serbia',
+    },
+    aria: {
+      email: 'Email savatic.nemanja@gmail.com',
+      github: 'GitHub: savaticnemanja',
+      linkedin: 'LinkedIn: savaticnemanja',
+      booking: 'Book a call',
+      location: 'Based in Novi Sad, Serbia — remote and hybrid',
+    },
   },
 }
 

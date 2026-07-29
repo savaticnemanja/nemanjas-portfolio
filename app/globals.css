@@ -1634,36 +1634,67 @@ summary,
   transition: color 0.2s, border-color 0.2s;
 }
 .newsletter-note a:hover { color: var(--brand); border-color: var(--brand-line); }
+/* Same two result tones as the contact form, so a success reads the same in both
+   places. Empty while idle, and an empty <p> takes no height, so nothing below
+   shifts when a message appears. */
+.newsletter-note[data-status='success'] { color: var(--brand); }
+.newsletter-note[data-status='error'] { color: #FF8A8A; }
+/* Unlike the contact form's result, this one sits below the row rather than in it,
+   so while it is empty its top margin would leave a gap under the field for no
+   reason. The margin goes, not the box: an empty <p> with no margin already
+   occupies no height, and `display: none` would take the live region out of the
+   accessibility tree — a region that is not in the tree when it fills is a region
+   some screen readers never announce. */
+.newsletter-note:empty { margin-top: 0; }
 
 /* ═════════════════════════════════════════════════════════════════════════
    CONTACT — the one inverted block on the site
    ═════════════════════════════════════════════════════════════════════════ */
 .contact {
-  background: var(--brand);
-  padding-block: 4.5rem;
   position: relative;
   z-index: 1;
+  padding-block: 4.5rem;
 }
 @media (min-width: 640px) { .contact { padding-block: 6rem; } }
 
-.contact-grid {
+/* Two halves of one panel: lime rail, dark form. `overflow: hidden` is what makes
+   the halves share the panel's rounded corners without either needing its own
+   radius. Stacked below 900px — the rail first, so the invitation is read before
+   the form is asked for. */
+.contact-panel {
   display: grid;
-  gap: 2.5rem;
-  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
 }
 @media (min-width: 900px) {
-  .contact-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .contact-panel {
+    /* The rail is sized to its content and the form takes the rest: the rail
+       holds five short handles and would look padded out at half the width. */
+    grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
+  }
 }
 
-.contact .eyebrow { color: rgba(0, 0, 0, 0.55); }
-.contact .eyebrow::before { opacity: 0.65; }
+/* ── The lime half ─────────────────────────────────────────────────────────── */
+.contact-rail {
+  display: flex;
+  flex-direction: column;
+  padding: 1.75rem;
+  background: var(--brand);
+  color: var(--ink);
+}
+@media (min-width: 640px) { .contact-rail { padding: 2.5rem; } }
+
+.contact-rail .eyebrow { color: rgba(0, 0, 0, 0.55); }
+.contact-rail .eyebrow::before { opacity: 0.65; }
 
 .contact-headline {
-  margin-top: 1rem;
-  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  margin-top: 0.875rem;
+  font-size: clamp(1.875rem, 3.4vw, 2.5rem);
   font-weight: 600;
   letter-spacing: -0.035em;
-  line-height: 1.02;
+  line-height: 1.05;
   color: var(--ink);
 }
 .contact-headline em {
@@ -1671,32 +1702,150 @@ summary,
   color: rgba(0, 0, 0, 0.45);
 }
 
-.contact-rows { border-top: 1px solid rgba(0, 0, 0, 0.18); }
-.contact-row {
+/* `margin-top: auto` pins the handles to the bottom of the rail, so on the wide
+   layout they line up with the foot of the form rather than floating under the
+   headline with a gap below them. */
+.contact-links {
+  margin-top: auto;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+.contact-links a,
+.contact-links p {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.9375rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
-  transition: padding-left 0.25s var(--ease);
-}
-a.contact-row:hover { padding-left: 0.5rem; }
-.contact-row-label {
-  min-width: 5.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.55);
-}
-.contact-row-value {
+  gap: 0.625rem;
+  padding: 0.4375rem 0.5rem;
+  margin-left: -0.5rem;
+  border-radius: var(--radius-pill);
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   color: var(--ink);
-  transition: opacity 0.2s;
+  /* The rows are the width of their content, not of the rail, so the hover tint
+     stops at the end of the handle instead of running to the panel edge. */
+  width: fit-content;
+  max-width: 100%;
+  transition: background 0.2s, transform 0.2s var(--ease);
 }
-a.contact-row:hover .contact-row-value { opacity: 0.6; }
-.contact :focus-visible { outline-color: var(--ink); }
+.contact-links a:hover {
+  background: rgba(0, 0, 0, 0.09);
+  transform: translateX(3px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-links a:hover { transform: none; }
+}
+/* The location is a statement, not a target — dimmed so the four things that can
+   be clicked read as a set and it does not. */
+.contact-links p { color: rgba(0, 0, 0, 0.6); }
+
+.contact-links .icon {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+}
+.contact-links span { min-width: 0; overflow-wrap: anywhere; }
+
+.contact-rail :focus-visible { outline-color: var(--ink); }
+
+/* ── The dark half ─────────────────────────────────────────────────────────── */
+.contact-form-half { padding: 1.75rem; }
+@media (min-width: 640px) { .contact-form-half { padding: 2.5rem; } }
+
+.contact-form-heading {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+.contact-form-desc {
+  margin-top: 0.5rem;
+  max-width: 42ch;
+  font-size: 0.875rem;
+  color: var(--fg-muted);
+}
+
+.cform { margin-top: 1.5rem; }
+.cform-row {
+  display: grid;
+  gap: 0.875rem;
+}
+@media (min-width: 560px) {
+  .cform-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.cform-field { display: flex; flex-direction: column; gap: 0.4375rem; }
+/* Only the field that follows the two-up row. Not `.cform-field + .cform-field`,
+   which would also match the second field inside that row — where the two sit
+   side by side in a grid and a top margin just shunts one of them down. */
+.cform-row + .cform-field { margin-top: 0.875rem; }
+
+.cform-field label {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+}
+
+.cform-field input,
+.cform-field textarea {
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.cform-field textarea {
+  /* Vertical only: a textarea that can be dragged wider escapes the panel. */
+  resize: vertical;
+  min-height: 6rem;
+  line-height: 1.6;
+}
+.cform-field input::placeholder,
+.cform-field textarea::placeholder { color: var(--fg-subtle); }
+.cform-field input:hover,
+.cform-field textarea:hover { border-color: var(--border-strong); }
+/* The invalid border is set from `aria-invalid`, which the action drives, rather
+   than from :invalid — :invalid matches an empty required field before anyone has
+   typed in it, so the form would open already marked wrong. */
+.cform-field [aria-invalid='true'] { border-color: #FF6B6B; }
+
+.cform-decoy {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.cform-foot {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.875rem;
+}
+.cform-foot .btn:disabled { opacity: 0.55; cursor: progress; }
+
+/* Empty while idle. Nothing shifts when a message arrives: this shares a
+   centre-aligned flex row with the button, so the row's height is the button's
+   either way, and the result grows sideways into the space beside it. */
+.cform-result {
+  flex: 1 1 14rem;
+  min-width: 0;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--fg-muted);
+}
+.cform-result[data-status='success'] { color: var(--brand); }
+.cform-result[data-status='error'] { color: #FF8A8A; }
 
 /* ═════════════════════════════════════════════════════════════════════════
    FOOTER

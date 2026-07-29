@@ -7,4 +7,12 @@ services:
     environment:
       PORT: ${PORT:-80}
       NODE_ENV: production
+      # Read per request by the server actions in lib/actions.js, so these take
+      # effect on restart — no rebuild. Absent, the forms answer with a message
+      # pointing at the contact address rather than failing.
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      RESEND_SEGMENT_ID: ${RESEND_SEGMENT_ID:-}
+      RESEND_AUDIENCE_ID: ${RESEND_AUDIENCE_ID:-}
+      RESEND_FROM: ${RESEND_FROM:-}
+      CONTACT_TO: ${CONTACT_TO:-}
     restart: unless-stopped
