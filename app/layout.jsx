@@ -79,6 +79,14 @@ export const viewport = {
   // Never block zoom — disabling pinch-to-zoom is the most common a11y failure
   // on mobile sites.
   maximumScale: 5,
+  // The manifest asks for `display: standalone`, and installed on iOS that means
+  // the web view owns the whole screen. Without this, the system insets the page
+  // away from the status bar and the home indicator itself and fills the
+  // remainder with the background colour — which is where the band above the
+  // header and the strips down the sides came from. `cover` hands those regions
+  // back, and the CSS pads for them with env(safe-area-inset-*) so nothing ends
+  // up underneath the clock or the notch.
+  viewportFit: 'cover',
 }
 
 export default function RootLayout({ children }) {
