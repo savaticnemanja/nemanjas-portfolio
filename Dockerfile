@@ -4,6 +4,13 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 FROM deps AS build
+# The subscribe form's provider endpoint. Needed here rather than in the runtime
+# stage because the homepage is prerendered, so `next build` is what bakes it in;
+# an env var supplied to the running container arrives long after the HTML exists.
+# Left empty the box renders disabled, which is a valid state, so this is not a
+# required argument.
+ARG NEWSLETTER_ENDPOINT=""
+ENV NEWSLETTER_ENDPOINT=$NEWSLETTER_ENDPOINT
 COPY . .
 RUN npm run build
 

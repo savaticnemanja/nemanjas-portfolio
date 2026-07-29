@@ -16,7 +16,7 @@ const formatDate = (value) => {
   return `${monthNames[month - 1]} ${day}, ${year}`
 }
 
-const BlogSection = ({ posts }) => {
+const BlogSection = ({ posts, newsletter = null }) => {
   const { blog } = content
   const [searchQuery, setSearchQuery] = useState('')
   const [activeTag, setActiveTag] = useState('all')
@@ -149,9 +149,12 @@ const BlogSection = ({ posts }) => {
           )}
         </>
       ) : (
+        /* Nothing published yet. The placeholder says so and the subscribe box
+           gives the visit somewhere to go, rather than a dead heading. */
         <div className="blog-empty">
           <h3>{blog.emptyTitle}</h3>
           <p>{blog.emptyDescription}</p>
+          {newsletter}
         </div>
       )}
     </>

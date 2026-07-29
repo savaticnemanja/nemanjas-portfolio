@@ -1561,11 +1561,97 @@ summary,
   letter-spacing: -0.01em;
   color: var(--fg);
 }
-.blog-empty p {
+/* Direct child, not descendant: the subscribe box below nests paragraphs of its
+   own, and as `.blog-empty p` this rule outranked their single-class selectors
+   and restyled them. The max-width keeps the copy scannable rather than running
+   the full width of the card. */
+.blog-empty > p {
   margin-top: 0.5rem;
+  max-width: 52ch;
   font-size: 0.875rem;
   color: var(--fg-muted);
 }
+
+/* ── Newsletter ────────────────────────────────────────────────────────────
+   Sits inside the blog placeholder, divided off by a hairline rather than a
+   second card — a bordered box inside a bordered box is one border too many. */
+.newsletter {
+  margin-top: 1.75rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--border);
+}
+.newsletter-heading {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+.newsletter-desc {
+  margin-top: 0.5rem;
+  max-width: 46ch;
+  font-size: 0.875rem;
+  color: var(--fg-muted);
+}
+
+/* Input and button on one row, the field taking the slack. `min-width` on the
+   input because a flex item's default `min-width: auto` for a text field is its
+   `size` attribute — around 20 characters — which would push the button off a
+   narrow card instead of letting the field give way. */
+.newsletter-form {
+  margin-top: 1.125rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+.newsletter-input {
+  flex: 1 1 12rem;
+  min-width: 0;
+  max-width: 22rem;
+  height: 2.5rem;
+  padding-inline: 0.875rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.newsletter-input::placeholder { color: var(--fg-subtle); }
+.newsletter-input:hover { border-color: var(--border-strong); }
+.newsletter-input:focus-visible {
+  border-color: var(--brand);
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+/* The unconfigured state. Muted rather than greyed into invisibility — it is
+   showing the shape of something that is coming, so it still has to be read. */
+.newsletter-input:disabled {
+  color: var(--fg-subtle);
+  cursor: not-allowed;
+}
+.newsletter-form .btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.newsletter-note {
+  margin-top: 0.75rem;
+  max-width: 52ch;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.7;
+  color: var(--fg-subtle);
+}
+.newsletter-note a {
+  color: var(--fg-muted);
+  border-bottom: 1px solid var(--border-strong);
+  transition: color 0.2s, border-color 0.2s;
+}
+.newsletter-note a:hover { color: var(--brand); border-color: var(--brand-line); }
 
 /* ═════════════════════════════════════════════════════════════════════════
    CONTACT — the one inverted block on the site

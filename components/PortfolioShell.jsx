@@ -1,6 +1,7 @@
 import content from '@content/en'
 import { Reveal, CountUp, PulseDot } from '@components/motion'
 import Tesseract from '@components/Tesseract'
+import NewsletterForm from '@components/NewsletterForm'
 import WorkSection from '@components/sections/WorkSection'
 import AboutSection from '@components/sections/AboutSection'
 import ExperienceSection from '@components/sections/ExperienceSection'
@@ -120,7 +121,12 @@ const PortfolioShell = ({ posts }) => (
     </section>
 
     <section id="blog" className="section" aria-labelledby="blog-heading">
-      <div className="page"><BlogSection posts={posts} /></div>
+      {/* Handed in as an element rather than imported by BlogSection, which is a
+          client component — this way the form stays server-rendered, reads
+          process.env where that is possible, and ships no JavaScript. */}
+      <div className="page">
+        <BlogSection posts={posts} newsletter={<NewsletterForm />} />
+      </div>
     </section>
 
     <ContactSection />

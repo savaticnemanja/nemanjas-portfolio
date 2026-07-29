@@ -158,12 +158,32 @@ const content = {
 
   blog: {
     readMore: 'Read article',
-    emptyTitle: 'No articles yet',
-    emptyDescription: 'Articles you publish in the posts/ folder will appear here automatically.',
+    // Shown while posts/ holds no articles. The old copy here pointed at the
+    // posts/ folder, which is a note to me — a visitor has no folder.
+    emptyTitle: 'First articles are on the way',
+    emptyDescription:
+      'Notes on the things I have had to work out the hard way — deployment, system design, the parts of a stack that only misbehave in production. Nothing published yet.',
     searchLabel: 'Search articles',
     filtersLabel: 'Filter by tag',
     emptyFilteredTitle: 'No matching articles',
     emptyFilteredDescription: 'Try updating your search or choosing a different tag.',
+  },
+
+  newsletter: {
+    heading: 'Get the first one',
+    description: 'One email when an article goes up. No schedule to pad out, so nothing else.',
+    inputLabel: 'Email address',
+    placeholder: 'you@example.com',
+    cta: 'Notify me',
+    // Shown in place of the working form when NEWSLETTER_ENDPOINT is unset, so
+    // the box is never a field that silently goes nowhere. Split around the link
+    // rather than one string the component picks apart, which would break the
+    // moment the wording changed.
+    unavailable: {
+      before: 'Sign-ups open shortly — in the meantime, ',
+      linkText: 'email me',
+      after: ' and I will add you by hand.',
+    },
   },
 
   contact: {
