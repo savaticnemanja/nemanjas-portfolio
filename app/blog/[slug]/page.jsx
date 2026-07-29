@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { getAllSlugs, getPostBySlug } from '@lib/posts'
+import { getAllSlugs, getPostBySlug, toArticleView } from '@lib/posts'
 import BlogArticleClient from '@components/BlogArticleClient'
 import { SITE, appUrl } from '@lib/site'
 
@@ -65,7 +65,10 @@ export default async function BlogArticlePage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <BlogArticleClient post={post} />
+      {/* The rendered body only. `content` is the same article again as raw
+          markdown, read here for the word count and needed no further than
+          this function. */}
+      <BlogArticleClient post={toArticleView(post)} />
     </>
   )
 }
