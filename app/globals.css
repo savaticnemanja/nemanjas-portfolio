@@ -597,33 +597,122 @@ summary,
 }
 
 /* Outlined monogram. Hairline type as ornament — the same idea as the card
-   borders, scaled up until it becomes the background. */
-/* Hidden on phones: at that width it runs straight through the buttons and
-   the stat tiles, and a second outline behind an outlined button just reads
-   as a rendering fault. */
+   borders, scaled up until it becomes the background.
+
+   It used to fill the 768–1024px gap, where the tesseract was hidden and that
+   corner was otherwise empty. The tesseract is drawn at every width now, so
+   the gap is gone and the rule that already governed 1024px up — two
+   overlapping wireframes is one too many — applies everywhere. */
 .hero-watermark { display: none; }
 
-@media (min-width: 768px) {
-  .hero-watermark {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: -3%;
-    translate: 0 -50%;
-    font-size: clamp(11rem, 26vw, 23rem);
-    font-weight: 800;
-    line-height: 0.78;
-    letter-spacing: -0.07em;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.055);
-    user-select: none;
-    pointer-events: none;
-    z-index: 0;
-    animation: watermark 26s ease-in-out infinite;
+/* One column below the two-column breakpoint, but a grid rather than plain
+   flow: it gives the tesseract a named cell to be positioned into, so it can
+   sit behind the copy without the two needing to be nested. */
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-areas:
+    'copy'
+    'stats'
+    'scroll';
+}
+.hero-copy { grid-area: copy; z-index: 1; }
+.hero-stats-slot { grid-area: stats; }
+.hero-scroll-slot { grid-area: scroll; }
+
+/* Two columns once there is room for the tesseract beside the copy. The stat
+   strip and the scroll cue stay full width underneath both, rather than being
+   squeezed into the narrower text column. */
+@media (min-width: 1024px) {
+  .hero-inner {
+    display: grid;
+    /* A fixed track, not `minmax(0, 24rem)`: that upper bound is only a cap on
+       a content-sized track, and a <canvas> carries an intrinsic 300x150, so
+       the column would settle at 300px and never use the room it was given. */
+    grid-template-columns: minmax(0, 1fr) 24rem;
+    grid-template-areas:
+      'copy   figure'
+      'stats  stats'
+      'scroll scroll';
+    column-gap: 3.5rem;
+    align-items: center;
+  }
+  .hero-copy { grid-area: copy; }
+  .hero-figure { grid-area: figure; }
+  .hero-stats-slot { grid-area: stats; }
+  .hero-scroll-slot { grid-area: scroll; }
+}
+
+/* ── Tesseract ─────────────────────────────────────────────────────────────
+   Below the two-column breakpoint it is a backdrop rather than a block: placed
+   into the copy's own grid cell and taken out of flow, so it sits behind the
+   headline and costs no vertical space. Absolutely positioned grid items are
+   laid out against their grid area, which is what centres it on the copy
+   instead of on the whole hero — the stat strip below is not its business.
+
+   Out of flow it is also free to be wider than the text column; `.hero`
+   already clips, so the bleed just runs off the edges. Dimmed, because it is
+   sitting under white type now: the wireframe has to stay the second-
+   brightest thing in the hero, never the first. */
+.hero-figure {
+  display: block;
+  position: absolute;
+  grid-area: copy;
+  /* Above centre, so the busiest part of the figure — the inner cube — sits
+     behind the headline, which is large and white and can carry it, and only
+     the sparse outer edges reach the muted paragraph below. */
+  top: 42%;
+  left: 50%;
+  translate: -50% -50%;
+  width: min(118%, 26rem);
+  /* It covers the buttons, so it must never intercept a tap. */
+  pointer-events: none;
+  z-index: 0;
+  /* Seats the wireframe in the same ambient light as the rest of the page. */
+  background: radial-gradient(closest-side, rgba(200, 255, 0, 0.05), transparent 70%);
+}
+
+/* Tablet has a much wider copy column, so a share of it rather than a cap. */
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  .hero-figure { width: min(70%, 34rem); }
+}
+
+/* From here it is a figure again: in its own column, in flow, at full strength. */
+@media (min-width: 1024px) {
+  .hero-figure {
+    position: static;
+    grid-area: figure;
+    translate: none;
+    /* Fills its grid track rather than falling back to the canvas's intrinsic
+       300px — see the track definition above. */
+    width: 100%;
+    pointer-events: auto;
   }
 }
 
-.hero-inner { position: relative; z-index: 1; }
+/* The dimming goes on the canvas, not on `.hero-figure`: that element is also
+   the Reveal wrapper, and `.reveal[data-visible='true']` sets opacity on it at
+   a higher specificity, so anything set here would be overridden the moment
+   the reveal fired. */
+/* 0.28 is a legibility ceiling, not a taste call. The wireframe is brand lime
+   on black; where an edge crosses the muted body copy it becomes that text's
+   background, and at 0.42 that pairing measured 1.71:1. This holds the
+   headline at 9:1 and the paragraph at 2.78:1 against the lines themselves. */
+.hero-figure .tesseract { opacity: 0.28; }
+
+@media (min-width: 1024px) {
+  .hero-figure .tesseract { opacity: 1; }
+}
+
+.tesseract {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  /* A canvas is a replaced element and gets an intrinsic 300x150 until the
+     aspect-ratio applies; without this it can flash at the wrong size. */
+  height: auto;
+}
 
 .hero-status {
   display: inline-flex;
@@ -658,11 +747,28 @@ summary,
   text-wrap: pretty;
 }
 
+/* Both buttons take the width of the wider one. `1fr` tracks in a grid that is
+   itself sized to its content resolve to the largest item's contribution, so
+   the pair stays a matched set whatever the two labels say — no min-width to
+   keep in sync with the copy. */
 .hero-actions {
   margin-top: 2.25rem;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  justify-content: start;
+  width: fit-content;
+  max-width: 100%;
   gap: 0.75rem;
+}
+
+/* Side by side, two buttons this wide overrun a phone. Stacking keeps them
+   equal rather than letting `max-width` squeeze the nowrap labels. */
+@media (max-width: 27rem) {
+  .hero-actions {
+    grid-auto-flow: row;
+    width: 100%;
+  }
 }
 
 .hero-stats {

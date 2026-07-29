@@ -1,5 +1,6 @@
 import content from '@content/en'
 import { Reveal, CountUp, PulseDot } from '@components/motion'
+import Tesseract from '@components/Tesseract'
 import WorkSection from '@components/sections/WorkSection'
 import AboutSection from '@components/sections/AboutSection'
 import ExperienceSection from '@components/sections/ExperienceSection'
@@ -18,35 +19,41 @@ const PortfolioShell = ({ posts }) => (
       <div className="hero-watermark" aria-hidden="true">NS</div>
 
       <div className="page hero-inner">
-        <Reveal>
-          <p className="hero-status">
-            <PulseDot />
-            Open to remote &amp; hybrid roles
-          </p>
+        <div className="hero-copy">
+          <Reveal>
+            <p className="hero-status">
+              <PulseDot />
+              Open to remote &amp; hybrid roles
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.05}>
+            <h1 className="hero-headline">
+              I build software that <em>ships.</em>
+            </h1>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <p className="hero-desc">
+              Senior software engineer, 5+ years across the frontend, backend and cloud.
+              Currently building the market-leading anti-money-laundering platform for a
+              top-tier fintech client.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.15}>
+            <div className="hero-actions">
+              <a href="#work" className="btn btn--primary">View work →</a>
+              <a href="#contact" className="btn btn--outline">Get in touch</a>
+            </div>
+          </Reveal>
+        </div>
+
+        <Reveal delay={0.1} className="hero-figure">
+          <Tesseract />
         </Reveal>
 
-        <Reveal delay={0.05}>
-          <h1 className="hero-headline">
-            I build software that <em>ships.</em>
-          </h1>
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          <p className="hero-desc">
-            Senior software engineer, 5+ years across the frontend, backend and cloud.
-            Currently building the market-leading anti-money-laundering platform for a
-            top-tier fintech client.
-          </p>
-        </Reveal>
-
-        <Reveal delay={0.15}>
-          <div className="hero-actions">
-            <a href="#work" className="btn btn--primary">View work →</a>
-            <a href="#contact" className="btn btn--outline">Get in touch</a>
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.2}>
+        <Reveal delay={0.2} className="hero-stats-slot">
           <dl className="hero-stats">
             <div className="card stat">
               <dt>Years shipping</dt>
@@ -79,7 +86,7 @@ const PortfolioShell = ({ posts }) => (
           </dl>
         </Reveal>
 
-        <Reveal delay={0.25}>
+        <Reveal delay={0.25} className="hero-scroll-slot">
           <p className="hero-scroll" aria-hidden="true">
             <span>Scroll</span>
             <span>↓</span>
