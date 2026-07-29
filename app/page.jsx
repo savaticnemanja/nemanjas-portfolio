@@ -1,4 +1,4 @@
-import { getPosts } from '@lib/posts'
+import { getPostCards } from '@lib/posts'
 import content from '@content/en'
 import PortfolioShell from '@components/PortfolioShell'
 import { SITE, SAME_AS, appUrl } from '@lib/site'
@@ -8,7 +8,9 @@ export const metadata = {
 }
 
 export default function HomePage() {
-  const posts = getPosts()
+  // Cards only: BlogSection is a client component, and the full posts carry
+  // every article's body twice over.
+  const posts = getPostCards()
   const { profile, contact, experience, skills, education } = content
 
   // Person + WebSite, so a search engine can tie the name, the role, the
