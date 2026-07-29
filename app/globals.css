@@ -63,7 +63,7 @@
 
   /* Geometry */
   --page:            72rem;
-  --gutter:          1rem;
+  --gutter:          0.5rem;
   --header-h:        3.5rem;
   --radius-card:     0.875rem;
   --radius-control:  0.5rem;
@@ -2143,4 +2143,37 @@ a.contact-row:hover .contact-row-value { opacity: 0.6; }
   0%, 100% { transform: translate3d(0, 0, 0) scale(1.04);    opacity: 0.86; }
   33%      { transform: translate3d(-6%, -7%, 0) scale(1);   opacity: 1; }
   66%      { transform: translate3d(-2%, 4%, 0) scale(1.07); opacity: 0.92; }
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   PHONE DENSITY
+   Last in the file on purpose: every rule below is an override of a component's
+   own padding, so it has to outrank it by order rather than by specificity.
+
+   The gutter is 8px (in :root), and nothing inside the page adds more than 12px
+   of its own inline padding on top. Between them that is 20px from the screen
+   edge to the first character, where it used to be up to 44px — on a 390px
+   screen that was over a fifth of the width spent on nothing.
+
+   Inline only. The vertical padding is what separates one block from the next
+   and carries the rhythm of the page; capping it at 12px too would run the
+   sections together into one column of text.
+   ═════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 639.98px) {
+  /* Content boxes. `padding-inline` after a shorthand `padding` leaves the
+     vertical values these already set alone. */
+  .stat,
+  .project-card,
+  .about-grid,
+  .about-skills,
+  .system-card,
+  .blog-card,
+  .blog-empty,
+  .tool-card,
+  .article-body pre { padding-inline: 0.75rem; }
+
+  /* Text fields, 14px down to 12px. Invisible at this size, but the rule is a
+     ceiling and these were over it. */
+  .blog-search,
+  .newsletter-input { padding-inline: 0.75rem; }
 }
