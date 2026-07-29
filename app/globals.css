@@ -76,6 +76,17 @@ html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   color-scheme: dark;
+
+  /* Anything the browser scrolls into view has to clear the sticky header, or
+     it lands underneath it. On the scroller rather than as `scroll-margin-top`
+     on the targets, so it covers the scrolls that have no anchor to hang off:
+     a field taking focus, a find-in-page hit, a keyboard tab into a section. */
+  scroll-padding-top: calc(var(--header-h) + 2rem);
+
+  /* Reserve the scrollbar's column even on pages short enough not to need one.
+     Without it, moving between a long page and a short one changes the width
+     of the content area and every centred thing on it slides sideways. */
+  scrollbar-gutter: stable;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -83,9 +94,8 @@ ul, ol { list-style: none; }
 button { background: none; border: none; font: inherit; color: inherit; }
 img, svg { display: block; max-width: 100%; }
 
-/* Anything the nav jumps to has to clear the sticky header, or the heading
-   lands underneath it. */
-[id] { scroll-margin-top: calc(var(--header-h) + 2rem); }
+/* The nav's jump targets are handled by `scroll-padding-top` on the scroller
+   above — one rule for every scroll, not just the ones aimed at an id. */
 
 /* ═════════════════════════════════════════════════════════════════════════
    BASE
@@ -96,7 +106,11 @@ body {
   font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.6;
-  overflow-x: hidden;
+  /* `clip` rather than `hidden`: both hide the overflow, but `hidden` makes the
+     body a scroll container, and once it is one the root scroller — the thing
+     `scroll-behavior` and `scroll-padding-top` are set on — can stop being the
+     element that actually scrolls, taking the sticky header with it. */
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -1715,6 +1729,10 @@ a.contact-row:hover .contact-row-value { opacity: 0.6; }
   border-radius: var(--radius-control);
   padding: 1.25rem 1.375rem;
   overflow-x: auto;
+  /* Swiping past the end of a wide code block would otherwise hand the gesture
+     to the browser, which reads it as a back-navigation and takes the article
+     away mid-scroll. */
+  overscroll-behavior-x: contain;
 }
 .article-body pre code {
   background: none;

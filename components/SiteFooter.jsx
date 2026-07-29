@@ -1,4 +1,5 @@
 import content from '@content/en'
+import { SectionLink } from '@components/SectionLink'
 
 const YEAR = new Date().getFullYear()
 
@@ -33,10 +34,10 @@ const SiteFooter = () => {
             <div className="footer-col">
               <h2>Site</h2>
               <ul>
-                <li><a href="/#work">Work</a></li>
-                <li><a href="/#about">About</a></li>
-                <li><a href="/#experience">Experience</a></li>
-                <li><a href="/#blog">Blog</a></li>
+                <li><SectionLink id="work">Work</SectionLink></li>
+                <li><SectionLink id="about">About</SectionLink></li>
+                <li><SectionLink id="experience">Experience</SectionLink></li>
+                <li><SectionLink id="blog">Blog</SectionLink></li>
               </ul>
             </div>
 

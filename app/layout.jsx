@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import Nav from '@components/Nav'
 import Cursor from '@components/Cursor'
 import Aurora from '@components/Aurora'
+import SmoothScroll from '@components/SmoothScroll'
 import SiteFooter from '@components/SiteFooter'
 import { SITE } from '@lib/site'
 
@@ -90,6 +91,7 @@ export default function RootLayout({ children }) {
           <style>{`.reveal, .stagger-item { opacity: 1 !important; transform: none !important; }`}</style>
         </noscript>
 
+        <SmoothScroll />
         <Aurora />
         <div className="grid-lines" aria-hidden="true" />
         <Cursor />

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import content from '@content/en'
 import { PulseDot } from '@components/motion'
+import { useSectionHref } from '@components/SectionLink'
 
 const LINKS = [
   { id: 'work', label: 'Work' },
@@ -29,6 +30,7 @@ export default function Nav() {
   const [active, setActive] = useState(null)
   const [open, setOpen] = useState(false)
   const frame = useRef(0)
+  const sectionHref = useSectionHref()
 
   // One rAF-throttled scroll handler drives both the header's border and the
   // active link, rather than two listeners fighting over the same event.
@@ -93,7 +95,7 @@ export default function Nav() {
           {LINKS.map((link) => (
             <a
               key={link.id}
-              href={`/#${link.id}`}
+              href={sectionHref(link.id)}
               data-active={active === link.id ? 'true' : 'false'}
               aria-current={active === link.id ? 'true' : undefined}
             >
@@ -142,7 +144,7 @@ export default function Nav() {
         <div className="menu-panel" id="mobile-menu">
           <nav className="page" aria-label="Menu">
             {LINKS.map((link) => (
-              <a key={link.id} href={`/#${link.id}`} onClick={() => setOpen(false)}>
+              <a key={link.id} href={sectionHref(link.id)} onClick={() => setOpen(false)}>
                 {link.label}
               </a>
             ))}
