@@ -1,25 +1,6 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import hljs from 'highlight.js/lib/core'
-import javascript from 'highlight.js/lib/languages/javascript'
-import typescript from 'highlight.js/lib/languages/typescript'
-import xml from 'highlight.js/lib/languages/xml'
-import json from 'highlight.js/lib/languages/json'
-import bash from 'highlight.js/lib/languages/bash'
-import css from 'highlight.js/lib/languages/css'
-
-hljs.registerLanguage('javascript', javascript)
-hljs.registerLanguage('js', javascript)
-hljs.registerLanguage('typescript', typescript)
-hljs.registerLanguage('ts', typescript)
-hljs.registerLanguage('xml', xml)
-hljs.registerLanguage('html', xml)
-hljs.registerLanguage('json', json)
-hljs.registerLanguage('bash', bash)
-hljs.registerLanguage('css', css)
-hljs.registerAliases(['jsx', 'tsx'], { languageName: 'javascript' })
-hljs.registerAliases(['shell', 'sh'], { languageName: 'bash' })
 
 const monthNames = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -65,14 +46,13 @@ const BlogArticleClient = ({ post }) => {
     }
   }, [])
 
+  // The blocks arrive already highlighted from lib/posts.js. All that is left
+  // for the client is focusability: a code block that scrolls sideways can only
+  // be reached with a pointer unless it can take focus — on a phone every one
+  // of these overflows.
   useEffect(() => {
     const root = bodyRef.current
     if (!root) return
-    root.querySelectorAll('pre code').forEach((block) => {
-      if (block instanceof HTMLElement) hljs.highlightElement(block)
-    })
-    // A code block that scrolls sideways can only be reached with a pointer
-    // unless it can take focus — on a phone every one of these overflows.
     root.querySelectorAll('pre').forEach((pre) => {
       pre.tabIndex = 0
     })
