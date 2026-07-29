@@ -17,8 +17,6 @@ const PortfolioShell = ({ posts }) => (
   <>
     {/* ── HERO ──────────────────────────────────────────────────────────── */}
     <section className="hero">
-      <div className="hero-watermark" aria-hidden="true">NS</div>
-
       <div className="page hero-inner">
         <div className="hero-copy">
           <Reveal>

@@ -24,7 +24,6 @@
   --bg:         var(--ink);
   --surface:    #0A0A0A;
   --surface-2:  var(--ink2);
-  --surface-3:  var(--ink3);
 
   /* Hairlines do the work shadows would */
   --border:        rgba(255, 255, 255, 0.08);
@@ -40,11 +39,6 @@
   --fg:         var(--white);
   --fg-muted:   #8F8F8F;
   --fg-subtle:  #7D7D7D;
-
-  /* Kept as aliases so nothing that still reads the old names breaks */
-  --text:       var(--fg-muted);
-  --text2:      var(--fg-subtle);
-  --lime-bg:    rgba(200, 255, 0, 0.06);
 
   /* Type */
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
@@ -273,12 +267,6 @@ summary,
   padding: 0.1875rem 0.5rem;
   transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
-.tag--brand {
-  border-color: var(--brand-line);
-  background: var(--brand-dim);
-  color: var(--brand);
-}
-
 /* Live dot with an expanding ring — used for the availability marker. */
 .pulse {
   position: relative;
@@ -598,15 +586,6 @@ summary,
 @media (min-width: 640px) {
   .hero { padding-block: 7rem 5rem; }
 }
-
-/* Outlined monogram. Hairline type as ornament — the same idea as the card
-   borders, scaled up until it becomes the background.
-
-   It used to fill the 768–1024px gap, where the tesseract was hidden and that
-   corner was otherwise empty. The tesseract is drawn at every width now, so
-   the gap is gone and the rule that already governed 1024px up — two
-   overlapping wireframes is one too many — applies everywhere. */
-.hero-watermark { display: none; }
 
 /* One column below the two-column breakpoint, but a grid rather than plain
    flow: it gives the tesseract a named cell to be positioned into, so it can
@@ -2119,10 +2098,6 @@ a.contact-row:hover .contact-row-value { opacity: 0.6; }
 @keyframes nudge {
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(3px); }
-}
-@keyframes watermark {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50%      { transform: translate3d(-1.5%, 1%, 0) scale(1.02); }
 }
 @keyframes drift-a {
   0%, 100% { transform: translate3d(0, 0, 0) scale(1);       opacity: 0.88; }
