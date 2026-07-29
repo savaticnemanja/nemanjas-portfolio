@@ -1712,8 +1712,7 @@ summary,
   flex-direction: column;
   gap: 0.125rem;
 }
-.contact-links a,
-.contact-links p {
+.contact-links a {
   display: flex;
   align-items: center;
   gap: 0.625rem;
@@ -1736,10 +1735,6 @@ summary,
 @media (prefers-reduced-motion: reduce) {
   .contact-links a:hover { transform: none; }
 }
-/* The location is a statement, not a target — dimmed so the four things that can
-   be clicked read as a set and it does not. */
-.contact-links p { color: rgba(0, 0, 0, 0.6); }
-
 .contact-links .icon {
   flex: none;
   width: 1rem;
@@ -2294,6 +2289,8 @@ summary,
   .blog-card,
   .blog-empty,
   .tool-card,
+  .contact-rail,
+  .contact-form-half,
   .article-body pre { padding-inline: 0.75rem; }
 
   /* Text fields, 14px down to 12px. Invisible at this size, but the rule is a

@@ -1,13 +1,7 @@
 import content from '@content/en'
 import { Reveal } from '@components/motion'
 import ContactForm from '@components/ContactForm'
-import {
-  MailIcon,
-  GitHubIcon,
-  LinkedInIcon,
-  CalendarIcon,
-  PinIcon,
-} from '@components/icons'
+import { MailIcon, GitHubIcon, LinkedInIcon, CalendarIcon } from '@components/icons'
 
 /**
  * One panel, two halves: the invitation and the ways to reach me on lime, the
@@ -16,11 +10,10 @@ import {
  * rail shows handles, because `linkedin.com/in/` in front of a username is
  * fourteen characters that say nothing the icon has not already said.
  *
- * The rail is rendered here rather than in a loop over one array because the five
- * rows are not the same thing: three are links out, one is a booking link, and
- * the last is a fact with nowhere to go. Data-driving them would mean a config
- * object with an `as` and an `external` and a `href?` — more machinery than the
- * five lines it replaces.
+ * The rail is written out rather than looped over an array because the four rows
+ * are not the same thing: one is a mailto, two open in a new tab, one is the
+ * booking link. Data-driving them would mean a config object carrying a `target`
+ * and a `rel` — more machinery than the four lines it would replace.
  */
 const ContactSection = () => {
   const { contact } = content
@@ -71,18 +64,6 @@ const ContactSection = () => {
                   <CalendarIcon />
                   <span>{handles.booking}</span>
                 </a>
-              </li>
-              {/* Not a link — there is nowhere for it to go. A <p> rather than an
-                  <a>, so it is never announced as something to activate. The
-                  context comes from a hidden label rather than `aria-label`, which
-                  the paragraph role does not support and screen readers ignore
-                  here. */}
-              <li>
-                <p>
-                  <PinIcon />
-                  <span className="sr-only">{aria.location}</span>
-                  <span aria-hidden="true">{handles.location}</span>
-                </p>
               </li>
             </ul>
           </div>

@@ -217,28 +217,31 @@ const content = {
     githubHref: 'https://github.com/savaticnemanja',
     linkedin: 'linkedin.com/in/savaticnemanja',
     linkedinHref: 'https://linkedin.com/in/savaticnemanja',
-    location: 'Novi Sad, Serbia · Remote & hybrid',
     calLink: 'savaticnemanja',
     calOrigin: 'https://cal.eu',
 
     /* The rail shows the handle rather than the URL. `github.com/` in front of a
        username is nine characters that say nothing the icon has not already
        said, and the full form wraps on a phone. The href keeps the whole
-       address; only the label is short. `aria` is what a screen reader gets,
-       where there is no icon to supply the context. */
+       address; only the label is short.
+
+       The address is the exception: an email is written out in full or it cannot
+       be used. A local part on its own is not something anyone can send to.
+
+       `aria` is what a screen reader gets, where there is no icon to supply the
+       context. Each one contains its row's visible text, so saying what is on
+       screen still activates the right thing (WCAG 2.5.3). */
     handles: {
-      email: 'savatic.nemanja',
+      email: 'savatic.nemanja@gmail.com',
       github: 'savaticnemanja',
       linkedin: 'savaticnemanja',
       booking: 'Book a call',
-      location: 'Novi Sad, Serbia',
     },
     aria: {
       email: 'Email savatic.nemanja@gmail.com',
       github: 'GitHub: savaticnemanja',
       linkedin: 'LinkedIn: savaticnemanja',
       booking: 'Book a call',
-      location: 'Based in Novi Sad, Serbia — remote and hybrid',
     },
   },
 }
