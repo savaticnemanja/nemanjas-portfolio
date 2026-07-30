@@ -187,17 +187,15 @@ summary,
    ═════════════════════════════════════════════════════════════════════════ */
 
 /* The content column. One width for the whole site. */
-/* Left and right resolved separately rather than as one `padding-inline`: in
-   landscape the cutout is on one side only, and a single value would pad both to
-   clear a notch that is only ever on one of them. `max()` rather than an
-   addition, so the gutter absorbs the inset instead of stacking with it — on a
-   phone with no cutout this is exactly the gutter, unchanged. */
+/* Plain gutter, no inset maths. The header is the one element that has to reach
+   the screen edges, and it now absorbs the side insets itself — `.page` is also
+   the header's inner row, so doing it here as well would inset the row twice and
+   push the logo in from an edge the header has already cleared. */
 .page {
   width: 100%;
   max-width: var(--page);
   margin-inline: auto;
-  padding-left: max(var(--gutter), var(--safe-left));
-  padding-right: max(var(--gutter), var(--safe-right));
+  padding-inline: var(--gutter);
 }
 
 /* Numbers are tabular everywhere so figures align in columns. */
@@ -451,15 +449,22 @@ summary,
 /* ═════════════════════════════════════════════════════════════════════════
    HEADER
    ═════════════════════════════════════════════════════════════════════════ */
-/* The inset goes on the header, not on `.header-inner`, so the blurred
-   background reaches up behind the status bar and the row of content sits below
-   it. Padding the inner row instead would leave the status bar sitting on bare
-   page with the header's backdrop starting underneath it. */
+/* All three insets sit on the <header>, not on `.header-inner`, so the blurred
+   black reaches up behind the status bar and out under the cutouts at the sides
+   while the row of content stays clear of them. Padding the inner row instead
+   leaves the bar itself short of the edges, which is the gap: on a phone the
+   header stops before the rounded corners and the page shows through beside it.
+   Left and right matter even where the top does not — the insets are non-zero
+   down both sides in landscape.
+   Same arrangement as oobeebets' site-header, which is `pt-safe-top
+   pl-safe-left pr-safe-right` on the header with plain padding on the row. */
 .header {
   position: sticky;
   top: 0;
   z-index: 100;
   padding-top: var(--safe-top);
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
   border-bottom: 1px solid transparent;
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(20px);
