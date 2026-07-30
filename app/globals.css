@@ -868,6 +868,18 @@ summary,
   color: var(--fg-subtle);
 }
 .marquee-item i { font-style: normal; color: var(--brand); }
+.marquee-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+/* Slightly larger than in a pill: the marquee label is 10px and set very wide, so
+   the glyph is the thing the eye catches as the strip goes past. */
+.marquee-label .skill-icon {
+  width: 1rem;
+  height: 1rem;
+  opacity: 0.9;
+}
 
 /* ═════════════════════════════════════════════════════════════════════════
    SECTIONS
@@ -1246,7 +1258,27 @@ summary,
   background: var(--border);
 }
 .skill-pills { display: flex; flex-wrap: wrap; gap: 0.375rem; }
-.skill-pill { padding: 0.3125rem 0.625rem; }
+.skill-pill { padding: 0.3125rem 0.5rem 0.3125rem 0.4375rem; }
+
+/* The glyphs carry their own brand colour, so they are the one place on this page
+   where the palette is not black, lime and bone. Held a little under full
+   strength: at 1 the pills became a row of logos with labels attached, and the
+   skill names are the content. Hover brings the colour up.
+
+   Not sized from the base .icon rule — that is 16px, and beside an 11px
+   uppercase mono label a 16px logo is bigger than the word it belongs to. */
+.skill-icon {
+  flex: none;
+  width: 0.875rem;
+  height: 0.875rem;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.skill-pill:hover .skill-icon { opacity: 1; }
+
+/* The label is the only thing that recolours on hover. The glyph keeps its brand
+   colour — `color: var(--brand)` would have no effect on it anyway, since the
+   fill is a literal, and tinting it lime would throw away the point of it. */
 .skill-pill:hover {
   border-color: var(--brand-line);
   background: var(--brand-dim);

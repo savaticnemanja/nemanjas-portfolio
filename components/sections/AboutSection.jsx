@@ -1,5 +1,6 @@
 import content from '@content/en'
 import { Reveal } from '@components/motion'
+import SkillIcon from '@components/SkillIcon'
 
 const AboutSection = () => {
   const { skills, profile, education } = content
@@ -82,7 +83,10 @@ const AboutSection = () => {
               <h3 className="skill-group-label">{cat.label}</h3>
               <div className="skill-pills">
                 {cat.items.map((item) => (
-                  <span key={item} className="tag skill-pill">{item}</span>
+                  <span key={item} className="tag skill-pill">
+                    <SkillIcon name={item} />
+                    {item}
+                  </span>
                 ))}
               </div>
             </div>

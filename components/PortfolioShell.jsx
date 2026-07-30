@@ -2,6 +2,7 @@ import content from '@content/en'
 import { Reveal, CountUp, PulseDot } from '@components/motion'
 import Tesseract from '@components/Tesseract'
 import { ArrowIcon, MailIcon } from '@components/icons'
+import SkillIcon from '@components/SkillIcon'
 import WorkSection from '@components/sections/WorkSection'
 import AboutSection from '@components/sections/AboutSection'
 import ExperienceSection from '@components/sections/ExperienceSection'
@@ -108,7 +109,14 @@ const PortfolioShell = ({ posts }) => (
       <div className="marquee-track">
         {[...MARQUEE, ...MARQUEE].map((item, i) => (
           <span key={i} className="marquee-item">
-            {item} <i>/</i>
+            {/* Glyph and label wrapped together: the row's 1.5rem gap is the
+                space around the separator, and an icon dropped in as a sibling
+                would inherit it and float away from the word it belongs to. */}
+            <span className="marquee-label">
+              <SkillIcon name={item} />
+              {item}
+            </span>
+            <i>/</i>
           </span>
         ))}
       </div>
