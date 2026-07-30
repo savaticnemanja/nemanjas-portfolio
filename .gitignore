@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 .next
 .claude
+
+# Rendered brand assets. scripts/linkedin-cover.mjs is versioned and regenerates
+# them; the output itself stays local.
+brand/
