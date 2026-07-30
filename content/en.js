@@ -206,6 +206,74 @@ const content = {
     },
   },
 
+  /* Everything the site sends by email, plus the pages an unsubscribe link
+     lands on. Written in the same voice as the rest of the copy — short
+     sentences, no exclamation marks, nothing that reads as a marketing
+     sequence, because none of these are one. */
+  emails: {
+    footer: {
+      sentBecause: 'You are getting this because you asked for new articles from',
+      unsubscribe: 'Unsubscribe',
+    },
+
+    welcome: {
+      subject: "You're on the list",
+      preheader: 'One email when an article goes up. Nothing else.',
+      title: "You're on the list",
+      lead: 'One email when an article goes up. No schedule to pad out, so nothing else lands in between.',
+      body: 'Mostly the things I had to work out the hard way — the ones where the answer was not in the docs. If that stops being useful, the unsubscribe link at the bottom of every one of these works immediately.',
+      cta: 'Read what is there',
+    },
+
+    notification: {
+      title: 'New message from the site',
+      from: 'From',
+      cta: 'Reply',
+    },
+
+    acknowledgement: {
+      subject: 'Got your message',
+      preheader: 'It reached me. I answer everything, usually within a day or two.',
+      // {name} is replaced with whatever they typed, escaped.
+      title: 'Thanks, {name}',
+      lead: 'Your message reached me. I answer everything, usually within a day or two — if it is urgent, replying to this email comes straight back to me.',
+      copyLabel: 'What you sent',
+    },
+
+    unsubscribed: {
+      subject: "You're unsubscribed",
+      preheader: 'No more emails. Nothing else needed from you.',
+      title: "You're unsubscribed",
+      lead: 'That is done — no more emails from the list. Nothing else is needed from you.',
+      resubscribe: 'If it was a mistake, the box at the bottom of',
+    },
+  },
+
+  /* The page an unsubscribe link lands on. Deliberately its own copy rather
+     than reusing the email's: one is read after the fact, this one is read
+     before anything has happened. */
+  unsubscribePage: {
+    title: 'Unsubscribe',
+    confirmHeading: 'Unsubscribe from the list?',
+    confirmBody: 'You will stop getting the email that goes out when a new article is published. Nothing else changes.',
+    confirmCta: 'Yes, unsubscribe',
+    cancel: 'Never mind',
+    pending: 'Unsubscribing…',
+
+    doneHeading: "You're unsubscribed",
+    doneBody: 'No more emails from the list. You can subscribe again any time from the blog.',
+    doneCta: 'Back to the site',
+
+    invalidHeading: 'That link is not valid',
+    invalidBody:
+      'The link is incomplete or has been altered in transit — some mail clients rewrite them. Copy the full address from the email, or write to me and I will take you off the list myself.',
+    invalidCta: 'Email me instead',
+
+    // Rendered inline under the button rather than as its own screen, so there
+    // is no heading to go with it.
+    failedBody: 'Something went wrong at our end rather than yours. Write to me and I will take you off the list myself.',
+  },
+
   contact: {
     eyebrow: '05 — Contact',
     headline: {

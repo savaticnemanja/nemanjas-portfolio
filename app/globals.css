@@ -1917,6 +1917,72 @@ summary,
 .cform-result[data-status='error'] { color: #FF8A8A; }
 
 /* ═════════════════════════════════════════════════════════════════════════
+   UNSUBSCRIBE
+   One screen, one decision, nothing else on it. Someone arriving here came from
+   an email to do a single thing, and a page that surrounds that with the site's
+   usual sections is a page arguing with them about it.
+   ═════════════════════════════════════════════════════════════════════════ */
+.unsub {
+  display: flex;
+  align-items: center;
+  /* The header is sticky and out of flow above this, so the viewport it has to
+     fill is what is left under it. */
+  min-height: calc(100vh - var(--header-h) - var(--safe-top));
+  padding-block: 4rem;
+}
+.unsub-inner { width: 100%; }
+
+.unsub-outcome {
+  max-width: 34rem;
+  margin-inline: auto;
+  text-align: center;
+}
+.unsub-heading {
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.unsub-body {
+  margin-top: 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--fg-muted);
+}
+
+/* The address in mono, because it is a value being acted on rather than prose —
+   the same treatment the form fields give one. */
+.unsub-address {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: var(--surface-2);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--fg);
+  /* A long address should wrap rather than widen the card past its max. */
+  overflow-wrap: anywhere;
+}
+
+.unsub-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+/* The outcome states have a single button and no row to centre it in. */
+.unsub-outcome > .btn { margin-top: 2rem; }
+
+.unsub-error {
+  margin-top: 1.25rem;
+  min-height: 1.25rem;
+  font-size: 0.8125rem;
+  color: #FF8A8A;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
    FOOTER
    ═════════════════════════════════════════════════════════════════════════ */
 .footer { border-top: 1px solid var(--border); }

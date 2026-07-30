@@ -15,4 +15,7 @@ services:
       RESEND_AUDIENCE_ID: ${RESEND_AUDIENCE_ID:-}
       RESEND_FROM: ${RESEND_FROM:-}
       CONTACT_TO: ${CONTACT_TO:-}
+      # Signs the unsubscribe links. Absent, newsletter mail goes out without one
+      # — see .env.example.
+      NEWSLETTER_SECRET: ${NEWSLETTER_SECRET:-}
     restart: unless-stopped
