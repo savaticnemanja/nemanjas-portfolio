@@ -1165,65 +1165,25 @@ summary,
    ABOUT
    ═════════════════════════════════════════════════════════════════════════ */
 .about-card { overflow: hidden; }
-.about-grid {
-  display: grid;
-  gap: 2.5rem;
-  padding: 1.75rem;
-}
+/* Was a two-column grid, prose beside a spec sheet. The spec sheet is gone, so
+   the grid machinery went with it — one child has nothing to sit beside and
+   nothing to gap against. The class stays: it carries the card's padding, and the
+   phone density block targets it. */
+.about-grid { padding: 1.75rem; }
 @media (min-width: 640px) { .about-grid { padding: 2.5rem; } }
-@media (min-width: 900px) {
-  .about-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
-}
 
-.about-text { font-size: 0.9375rem; line-height: 1.85; color: var(--fg-muted); }
+/* The measure used to be set by the column the prose sat in. On its own in a
+   72rem card it would run past 140 characters a line, so it holds its own width
+   now — 68ch is inside the 45–75 the eye tracks without losing its place. */
+.about-text {
+  max-width: 68ch;
+  font-size: 0.9375rem;
+  line-height: 1.85;
+  color: var(--fg-muted);
+}
 .about-text p + p { margin-top: 1.25rem; }
 .about-text strong { color: var(--fg); font-weight: 500; }
 
-/* Spec sheet: hairline rows, mono label, value in the reading face. Set as a
-   <dl>, so each row is one term/definition group in its own <div>. */
-.facts { border-top: 1px solid var(--border); }
-.facts > div {
-  display: grid;
-  grid-template-columns: 6.5rem 1fr;
-  gap: 1rem;
-  padding-block: 0.75rem;
-  border-bottom: 1px solid var(--border);
-}
-.facts dt {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--fg-subtle);
-  padding-top: 0.1875rem;
-}
-.facts dd {
-  font-size: 0.8125rem;
-  line-height: 1.6;
-  color: var(--fg);
-}
-.facts-line {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-}
-.facts-line i {
-  font-style: normal;
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  font-size: 0.625rem;
-  letter-spacing: 0.08em;
-  color: var(--fg-subtle);
-  white-space: nowrap;
-}
-.facts-note {
-  display: block;
-  margin-top: 0.25rem;
-  font-size: 0.75rem;
-  line-height: 1.5;
-  color: var(--fg-subtle);
-}
 
 /* Seven skill groups is too many for a side column, so they run full width
    under the prose. */

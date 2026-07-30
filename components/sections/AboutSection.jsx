@@ -3,7 +3,7 @@ import { Reveal } from '@components/motion'
 import SkillIcon from '@components/SkillIcon'
 
 const AboutSection = () => {
-  const { skills, profile, education } = content
+  const { skills, profile } = content
 
   return (
     <>
@@ -39,42 +39,6 @@ const AboutSection = () => {
             </p>
           </div>
 
-          {/* The spec sheet. Everything here is a fact from the CV, set as a
-              definition list so it reads as data rather than as more prose. */}
-          <dl className="facts">
-            <div>
-              <dt>Based</dt>
-              <dd>{profile.location}</dd>
-            </div>
-            <div>
-              <dt>Role</dt>
-              <dd>{profile.role}</dd>
-            </div>
-            <div>
-              <dt>Focus</dt>
-              <dd>{profile.focus}</dd>
-            </div>
-            <div>
-              <dt>Education</dt>
-              <dd>
-                {education.map((item) => (
-                  <span key={item.degree} className="facts-line">
-                    {item.degree}
-                    <i>{item.period.replace(/[A-Za-z]+ /g, '')}</i>
-                  </span>
-                ))}
-                <span className="facts-note">{education[0].school}</span>
-              </dd>
-            </div>
-            <div>
-              <dt>Languages</dt>
-              <dd>{profile.languages}</dd>
-            </div>
-            <div>
-              <dt>Available</dt>
-              <dd>{profile.availability}</dd>
-            </div>
-          </dl>
         </div>
 
         <div className="about-skills">
