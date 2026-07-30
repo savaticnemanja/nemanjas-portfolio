@@ -2282,21 +2282,26 @@ summary,
 
 /* ═════════════════════════════════════════════════════════════════════════
    PHONE DENSITY
-   Last in the file on purpose: every rule below is an override of a component's
-   own padding, so it has to outrank it by order rather than by specificity.
+   Last in the file on purpose: every rule below overrides a component's own
+   padding, so it has to outrank it by order rather than by inflating specificity.
 
-   The gutter is 8px (in :root), and nothing inside the page adds more than 12px
-   of its own inline padding on top. Between them that is 20px from the screen
-   edge to the first character, where it used to be up to 44px — on a 390px
-   screen that was over a fifth of the width spent on nothing.
+   The gutter stays at 8px. What changed is the card padding: it was capped on the
+   inline axis only, at 12px, which left cards with 12px at the sides and the
+   28–40px they already had top and bottom. A ratio near 1:3 does not read as a
+   tight card, it reads as a mistake — the text hugged the sides while air pooled
+   above and below it.
 
-   Inline only. The vertical padding is what separates one block from the next
-   and carries the rhythm of the page; capping it at 12px too would run the
-   sections together into one column of text.
+   So it is one uniform value now, --card-pad. 16px on all four sides: 24px from
+   the screen edge to the first character with the gutter, which is comfortable,
+   and the padding box finally looks deliberate. It also tightens the cards
+   vertically, which on a phone means more of them per screen.
+
+   This is the one number to turn. Section and hero padding is untouched — that is
+   the rhythm between blocks, a different job from the padding inside one.
    ═════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 639.98px) {
-  /* Content boxes. `padding-inline` after a shorthand `padding` leaves the
-     vertical values these already set alone. */
+  :root { --card-pad: 1rem; }
+
   .stat,
   .project-card,
   .about-grid,
@@ -2307,10 +2312,10 @@ summary,
   .tool-card,
   .contact-rail,
   .contact-form-half,
-  .article-body pre { padding-inline: 0.75rem; }
+  .article-body pre { padding: var(--card-pad); }
 
-  /* Text fields, 14px down to 12px. Invisible at this size, but the rule is a
-     ceiling and these were over it. */
+  /* Controls keep the inline-only treatment: their height is set by `height` or
+     by line-height, so a uniform value here would fight it. */
   .blog-search,
   .newsletter-input { padding-inline: 0.75rem; }
 }
