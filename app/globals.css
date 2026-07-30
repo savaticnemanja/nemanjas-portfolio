@@ -29,6 +29,15 @@
   --border:        rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.16);
 
+  /* Glass. See the GLASS section near the end of this file for what each does.
+     Two tints, because the right weight depends on whether the blur is available:
+     without it the tint is the only thing separating card from page, so it has to
+     carry more. */
+  --glass-tint:       rgba(255, 255, 255, 0.038);
+  --glass-tint-blur:  rgba(255, 255, 255, 0.028);
+  --glass-edge:       rgba(255, 255, 255, 0.10);
+  --glass-blur:       14px;
+
   /* Brand */
   --brand:        var(--lime);
   --brand-dim:    rgba(200, 255, 0, 0.10);
@@ -2278,6 +2287,99 @@ summary,
   0%, 100% { transform: translate3d(0, 0, 0) scale(1.04);    opacity: 0.86; }
   33%      { transform: translate3d(-6%, -7%, 0) scale(1);   opacity: 1; }
   66%      { transform: translate3d(-2%, 4%, 0) scale(1.07); opacity: 0.92; }
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   GLASS
+   The cards stop being opaque panels and become panes over the aurora.
+
+   This only works because there is something behind them worth blurring: four
+   drifting blooms and the grid overlay, both fixed at z-index -1, which is above
+   the body's background and below everything in flow. On a flat backdrop glass
+   reads as "slightly wrong grey"; over a moving bloom it reads as glass, and the
+   colour shifts as the blooms drift past underneath.
+
+   True refraction means displacing what is behind the surface, which CSS cannot
+   do — there is no displacement map in `backdrop-filter`. Four cues stand in for
+   it, and together they are most of what the eye actually reads as thick glass:
+
+   1. `blur` — the pane is not clear, it scatters what is behind it
+   2. `saturate` — glass concentrates the colour it passes, so the bloom behind a
+      card comes through more vivid than the bloom beside it
+   3. a bevel: light along the top edge, shadow along the bottom, which is what an
+      edge does to light passing through it
+   4. a faint lime fringe on the left edge — light splitting at a boundary. This
+      is the one that sells it, and it is 4.5% opacity; any more and it reads as a
+      coloured border rather than as an artefact of the material.
+
+   Cost: `backdrop-filter` forces each of these onto the compositor and makes it
+   re-blur its patch of backdrop whenever the aurora moves underneath. There are
+   roughly fifteen on the homepage. It is smooth on this hardware; if it drags on
+   a mid-range phone, wrapping the @supports block in `(min-width: 640px)` drops
+   it to a flat tint on mobile and changes nothing else.
+   ═════════════════════════════════════════════════════════════════════════ */
+.card,
+.project-card,
+.blog-card,
+.blog-empty,
+.tool-card,
+.contact-form-half {
+  background-color: var(--glass-tint);
+  /* The specular sheen. A gradient on the element itself rather than a
+     pseudo-element, because ::before and ::after are already taken here — the
+     featured project card and the blog card's full-card click target both use
+     them. */
+  background-image: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.09) 0%,
+    rgba(255, 255, 255, 0.02) 26%,
+    transparent 52%
+  );
+  border: 1px solid var(--glass-edge);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.11),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.32),
+    inset 1px 0 0 rgba(200, 255, 0, 0.045),
+    0 18px 40px -28px rgba(0, 0, 0, 0.9);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .card,
+  .project-card,
+  .blog-card,
+  .blog-empty,
+  .tool-card,
+  .contact-form-half {
+    /* Thinner tint once the blur is doing the work — at the fallback's weight the
+       pane would fog over what it is meant to be showing. */
+    background-color: var(--glass-tint-blur);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+  }
+}
+
+/* The panel is only a frame now: the lime rail and the glass form half each carry
+   their own surface, and an opaque background on the parent would sit between the
+   form half and the aurora it is supposed to be showing. */
+.contact-panel { background: transparent; }
+
+/* Some people turn transparency off at the OS level, and for them this whole
+   effect is the thing they turned off. Back to flat, opaque cards. */
+@media (prefers-reduced-transparency: reduce) {
+  .card,
+  .project-card,
+  .blog-card,
+  .blog-empty,
+  .tool-card,
+  .contact-form-half {
+    background-color: var(--surface);
+    background-image: none;
+    border-color: var(--border);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+  .contact-panel { background: var(--surface); }
 }
 
 /* ═════════════════════════════════════════════════════════════════════════
