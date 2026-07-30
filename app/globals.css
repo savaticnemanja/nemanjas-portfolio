@@ -1235,6 +1235,11 @@ summary,
   transition: opacity 0.2s;
 }
 .skill-pill:hover .skill-icon { opacity: 1; }
+/* Project tags sit inside a card that is itself the hover target, so the lift
+   comes from the card rather than from the tag — hovering one tag and having only
+   that glyph brighten, inside a card already lit, reads as a second hover state
+   competing with the first. */
+.project-card:hover .skill-icon { opacity: 1; }
 
 /* The label is the only thing that recolours on hover. The glyph keeps its brand
    colour — `color: var(--brand)` would have no effect on it anyway, since the

@@ -1,6 +1,7 @@
 import content from '@content/en'
 import ProjectCard from '@components/ProjectCard'
 import { Reveal, Stagger } from '@components/motion'
+import SkillIcon from '@components/SkillIcon'
 
 const index = (n) => String(n).padStart(2, '0')
 
@@ -38,7 +39,10 @@ const WorkSection = () => {
               {featured.tech?.length ? (
                 <div className="project-tags">
                   {featured.tech.map((t) => (
-                    <span key={t} className="tag">{t}</span>
+                    <span key={t} className="tag">
+                        <SkillIcon name={t} />
+                        {t}
+                      </span>
                   ))}
                 </div>
               ) : null}
@@ -69,7 +73,10 @@ const WorkSection = () => {
                 {project.tech?.length ? (
                   <div className="project-tags">
                     {project.tech.map((t) => (
-                      <span key={t} className="tag">{t}</span>
+                      <span key={t} className="tag">
+                        <SkillIcon name={t} />
+                        {t}
+                      </span>
                     ))}
                   </div>
                 ) : null}
