@@ -48,17 +48,21 @@ export const metadata = {
   // No canonical here. Metadata is inherited, so a root canonical is not a
   // default — it is an assertion every page without its own repeats verbatim.
   // Each route sets its own.
+  // `shortRole`, not `role`, in both share titles: the full one put these at 63
+  // characters and a card headline is held to the same ~60 as a SERP title.
+  // The image's own alt still carries the full role, because the image renders
+  // it — that is a description of a picture, not a headline.
   openGraph: {
     type: 'website',
     siteName: SITE.name,
-    title: `${SITE.author} — ${SITE.role}`,
+    title: `${SITE.author} — ${SITE.shortRole}`,
     description: SITE.description,
     url: SITE.url,
     locale: SITE.locale,
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${SITE.author} — ${SITE.role}`,
+    title: `${SITE.author} — ${SITE.shortRole}`,
     description: SITE.description,
   },
   robots: {
