@@ -4,17 +4,11 @@
  *   node scripts/linkedin-cover.mjs
  *
  * The tesseract is not a drawing of the one on the site — it is the same
- * projection, run once at a fixed pose. The maths below is lifted from
- * components/Tesseract.jsx and kept in step with it by hand: 16 vertices, 32
- * edges, two simultaneous 4D rotations, a perspective divide in 4D and then
- * another in 3D, edges sorted far-to-near and shaded by depth.
- *
- * The pose is NOT the component's RESTING_TIME. That frame was chosen for a
- * square canvas, and at 2.4 the figure is a tall narrow bipyramid — on a 4:1
- * banner it reads as a crystal, not a hypercube. Poses were rendered as a contact
- * sheet and 4.2 picked by eye: a three-quarter view where the outer cube, the
- * inner cube and the edges joining them are all legible, and wider than it is
- * tall, which is the shape this canvas has room for.
+ * projection, run once at a fixed pose. The maths used to live here as a second
+ * copy of components/Tesseract.jsx, kept in step by hand; it is lib/tesseract.js
+ * now, which app/opengraph-image.jsx draws from as well. That module is
+ * deliberately alias-free so this script can import it with no bundler behind
+ * it. All this file still owns is where the figure goes and what colour it is.
  *
  * Layout is built around LinkedIn's crop. The profile photo overlaps the lower
  * left of the cover, so the left third carries nothing but background; the type
@@ -28,6 +22,7 @@ import { Buffer } from 'node:buffer'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
+import { projectTesseract } from '../lib/tesseract.js'
 
 const W = 1584
 const H = 396
@@ -41,83 +36,17 @@ const MUTED = '#8F8F8F'
 const SUBTLE = '#7D7D7D'
 
 /* ── Tesseract ─────────────────────────────────────────────────────────────── */
-const VERTICES = Array.from({ length: 16 }, (_, i) => [
-  i & 1 ? 1 : -1,
-  i & 2 ? 1 : -1,
-  i & 4 ? 1 : -1,
-  i & 8 ? 1 : -1,
-])
-
-const EDGES = []
-for (let i = 0; i < 16; i += 1) {
-  for (let axis = 0; axis < 4; axis += 1) {
-    const j = i ^ (1 << axis)
-    if (j > i) EDGES.push([i, j])
-  }
-}
-
-function rotate(p, a, b, angle) {
-  const c = Math.cos(angle)
-  const s = Math.sin(angle)
-  const pa = p[a]
-  const pb = p[b]
-  p[a] = pa * c - pb * s
-  p[b] = pa * s + pb * c
-}
-
-const W_DISTANCE = 2.9
-const Z_DISTANCE = 4.6
-const POSE = 4.2
-
+/* Geometry and shading come from lib/tesseract.js; this turns them into the SVG
+   string the rest of this file concatenates, in the site's lime. */
 function tesseract({ cx, cy, box }) {
-  const scale = box * 0.1274
-  const time = POSE
-
-  const raw = VERTICES.map((v) => {
-    const p = [v[0], v[1], v[2], v[3]]
-    rotate(p, 0, 3, time * 0.3)
-    rotate(p, 1, 2, time * 0.22)
-
-    const kw = W_DISTANCE / (W_DISTANCE - p[3])
-    const x3 = p[0] * kw
-    const y3 = p[1] * kw
-    const z3 = p[2] * kw
-    const kz = Z_DISTANCE / (Z_DISTANCE - z3)
-    return { x: x3 * kz * scale, y: y3 * kz * scale, depth: kw * kz }
-  })
-
-  /* Centred on the figure's own extents, not on the projection origin. A single
-     pose is not symmetric about that origin — this one sits low and left of it —
-     so centring on the origin would leave the shape visibly off-centre in a way
-     the animated version never shows, because there it is always moving. */
-  const xs = raw.map((p) => p.x)
-  const ys = raw.map((p) => p.y)
-  const ox = (Math.min(...xs) + Math.max(...xs)) / 2
-  const oy = (Math.min(...ys) + Math.max(...ys)) / 2
-  const points = raw.map((p) => ({ x: cx + p.x - ox, y: cy + p.y - oy, depth: p.depth }))
-
-  // Stroke weights scale with the figure. The component's 1.05–2.25px is tuned
-  // for a ~300px canvas; at this size those would be hairlines that vanish.
-  const weight = box / 300
-
-  const edges = EDGES.map(([a, b]) => ({
-    a: points[a],
-    b: points[b],
-    depth: (points[a].depth + points[b].depth) / 2,
-  })).sort((m, n) => m.depth - n.depth)
+  const { edges, vertices } = projectTesseract({ cx, cy, box })
 
   let svg = ''
   for (const e of edges) {
-    const t = Math.min(Math.max((e.depth - 0.5) / 1.15, 0), 1)
-    const o = (0.14 + t * 0.62).toFixed(3)
-    const sw = ((1.05 + t * 1.2) * weight).toFixed(2)
-    svg += `<line x1="${e.a.x.toFixed(2)}" y1="${e.a.y.toFixed(2)}" x2="${e.b.x.toFixed(2)}" y2="${e.b.y.toFixed(2)}" stroke="${LIME}" stroke-opacity="${o}" stroke-width="${sw}" stroke-linecap="round"/>`
+    svg += `<line x1="${e.x1.toFixed(2)}" y1="${e.y1.toFixed(2)}" x2="${e.x2.toFixed(2)}" y2="${e.y2.toFixed(2)}" stroke="${LIME}" stroke-opacity="${e.opacity.toFixed(3)}" stroke-width="${e.width.toFixed(2)}" stroke-linecap="round"/>`
   }
-  for (const p of points) {
-    const t = Math.min(Math.max((p.depth - 0.95) / 0.95, 0), 1)
-    if (t <= 0.02) continue
-    const r = ((0.9 + t * 1.7) * weight).toFixed(2)
-    svg += `<circle cx="${p.x.toFixed(2)}" cy="${p.y.toFixed(2)}" r="${r}" fill="${LIME}" fill-opacity="${(t * 0.85).toFixed(3)}"/>`
+  for (const p of vertices) {
+    svg += `<circle cx="${p.x.toFixed(2)}" cy="${p.y.toFixed(2)}" r="${p.r.toFixed(2)}" fill="${LIME}" fill-opacity="${p.opacity.toFixed(3)}"/>`
   }
   return svg
 }

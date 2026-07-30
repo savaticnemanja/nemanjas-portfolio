@@ -28,3 +28,12 @@ dist-ssr
 # Rendered brand assets. scripts/linkedin-cover.mjs is versioned and regenerates
 # them; the output itself stays local.
 brand/
+
+# Real values. This was tracked, and held only HOST_PORT and PORT, so nothing has
+# leaked — but it is where RESEND_API_KEY goes, and a tracked file is one `git
+# add -A` away from putting that key in a public repo permanently. .env.example
+# is the versioned one; docker-compose defaults cover the two ports for anyone
+# cloning without it.
+.env
+.env.local
+.env.*.local
