@@ -39,32 +39,6 @@ const ExperienceSection = () => {
           </div>
         ))}
       </Stagger>
-
-      {/* Client and employer systems. These sit under experience rather than
-          in Work because they are employment deliverables — none of them has a
-          public URL to link to. */}
-      <Reveal className="systems-header">
-        <h3 className="systems-title">Selected systems</h3>
-        <p className="systems-note">
-          Built inside banks and financial institutions, so there is nothing to link
-          to — the stack is the receipt.
-        </p>
-      </Reveal>
-
-      <Stagger className="systems">
-        {experience.systems.map((system) => (
-          <div className="card system-card" key={system.name}>
-            <p className="system-domain">{system.domain}</p>
-            <h4 className="system-name">{system.name}</h4>
-            <p className="system-desc">{system.description}</p>
-            <div className="system-stack">
-              {system.stack.map((item) => (
-                <span key={item} className="tag">{item}</span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </Stagger>
     </>
   )
 }

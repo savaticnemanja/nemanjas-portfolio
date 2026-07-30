@@ -47,39 +47,6 @@ const content = {
         ],
       },
     ],
-
-    /* Client and employer systems. No links — these run inside banks and
-       financial institutions, not on the public web. */
-    systems: [
-      {
-        name: 'Anti-Money-Laundering Platform',
-        domain: 'Fintech / Financial crime',
-        description:
-          'Development, maintenance and customization of the market-leading AML solution, used by financial institutions worldwide to detect and prevent money laundering and meet regulatory compliance.',
-        stack: ['Vue.js', 'Micro-frontends', 'MSSQL', 'PostgreSQL', 'OracleDB', 'AWS', 'Jenkins', 'TDD'],
-      },
-      {
-        name: 'Internal Risk Notification System',
-        domain: 'Digital banking',
-        description:
-          'Secure one-way platform for risk teams to broadcast critical alerts to branch offices nationwide: a React admin panel, a .NET Core API and a lightweight WPF tray app, authenticated over LDAP inside a closed banking network.',
-        stack: ['React', '.NET Core', 'WPF', 'LDAP', 'REST APIs', 'Windows Services'],
-      },
-      {
-        name: 'Pension Fund Web Portal',
-        domain: 'Pension management',
-        description:
-          'Secure portal for managing pension accounts and client portfolios: authentication, account overviews, transaction history and digital document access, built for high availability and financial-data compliance.',
-        stack: ['TypeScript', 'React', 'Node.js', 'REST APIs', 'Docker', 'CI/CD', 'PostgreSQL'],
-      },
-      {
-        name: 'Franchise CRM & Review Analytics',
-        domain: 'CRM / Analytics',
-        description:
-          'Led development of a CRM platform for franchisers across 10 countries, delivering review analytics and customer insights to support data-driven decisions.',
-        stack: ['React', 'Node.js', 'Redis', 'MySQL', 'CI/CD', 'AWS'],
-      },
-    ],
   },
 
   work: {
