@@ -139,6 +139,31 @@ body::after {
   z-index: 9998;
 }
 
+/* Outside the installed app, the bottom inset belongs to Safari's toolbar — and
+   once it collapses to the compact pill it stops filling the width, leaving the
+   page showing through at both ends of it. What shows through there is the
+   lower aurora bloom, so the pill floats on a faint lime wash. Flat black gives
+   it a clean base instead.
+   Scoped to `display-mode: browser` because installed there is no toolbar: the
+   same strip is the home indicator sitting over the footer, which the footer
+   already pads for, and a band across it would only cut the page short. Inert
+   anywhere --safe-bottom is 0, which includes Safari with the toolbar expanded
+   — there is no gap to fill in that state either. */
+@media (display-mode: browser) {
+  body::before {
+    content: '';
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--safe-bottom);
+    background: var(--ink);
+    pointer-events: none;
+    /* Under the grain, over everything the grain covers. */
+    z-index: 9997;
+  }
+}
+
 button:not(:disabled),
 summary,
 [role='button']:not([aria-disabled='true']) { cursor: pointer; }
@@ -472,6 +497,26 @@ summary,
   transition: border-color 0.3s, background 0.3s;
 }
 .header[data-scrolled='true'] { border-bottom-color: var(--border); }
+
+/* The status bar gets flat black rather than the glass. Frosted blur under the
+   clock and the battery reads as smear: that type is white with nothing behind
+   it, so its backdrop changes tone with whatever happens to be scrolling past
+   underneath, and the 20px blur keeps a ghost of the page up there the whole
+   time. Opaque black is one fixed backdrop for it and hides the seam a
+   rubber-band scroll opens between the blurred bar and the sharp page above it.
+   Painted over the header's own background instead of replacing it, so the row
+   below keeps its glass — this claims the inset and nothing else, and collapses
+   to zero height wherever there is no inset to claim. */
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--safe-top);
+  background: var(--ink);
+  pointer-events: none;
+}
 
 .header-inner {
   display: flex;
@@ -2422,4 +2467,35 @@ summary,
      by line-height, so a uniform value here would fight it. */
   .blog-search,
   .newsletter-input { padding-inline: 0.75rem; }
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   TOUCH FIELDS
+   Safari on iOS zooms the page in when a text field takes focus and its type is
+   under 16px — and it does not zoom back out afterwards, so one tap on the
+   newsletter field leaves the whole site scaled up and scrolling sideways. All
+   three fields were under the line: the two mono ones at 13px, the contact
+   form's at 14px.
+
+   16px on the field is the only fix that keeps zoom working. The other way out
+   is `maximum-scale=1` on the viewport, which stops the zoom by taking
+   pinch-to-zoom away from everyone, permanently, on every page — layout.jsx
+   already refuses that trade and it is not worth reopening for three inputs.
+
+   `pointer: coarse` rather than a width query: an iPad is wide and still zooms,
+   a narrow desktop window is neither. Type this size is only ever seen on a
+   touchscreen, where 16px is the more legible size anyway.
+
+   Last in the file, after the phone-density block, so it outranks each field's
+   own `font-size` by order — every selector here is specificity-matched to the
+   rule it is overriding, so position is what decides it.
+   ═════════════════════════════════════════════════════════════════════════ */
+@media (pointer: coarse) {
+  input,
+  textarea,
+  select,
+  .blog-search,
+  .newsletter-input,
+  .cform-field input,
+  .cform-field textarea { font-size: 1rem; }
 }
