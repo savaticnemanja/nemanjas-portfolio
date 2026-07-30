@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useRef } from 'react'
 import content from '@content/en'
 import { sendMessage } from '@lib/actions'
+import { SendIcon } from '@components/icons'
 
 const INITIAL = { status: 'idle', message: '', field: null }
 
@@ -90,6 +91,7 @@ export default function ContactForm() {
 
       <div className="cform-foot">
         <button type="submit" className="btn btn--primary" disabled={pending}>
+          <SendIcon />
           {pending ? contactForm.sending : contactForm.cta}
         </button>
 

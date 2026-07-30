@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useRef } from 'react'
 import content from '@content/en'
 import { subscribe } from '@lib/actions'
+import { BellIcon } from '@components/icons'
 
 const INITIAL = { status: 'idle', message: '', field: null }
 
@@ -48,6 +49,7 @@ export default function NewsletterForm() {
           aria-describedby={state.status !== 'idle' ? 'newsletter-result' : undefined}
         />
         <button type="submit" className="btn btn--primary btn--sm" disabled={pending}>
+          <BellIcon />
           {pending ? newsletter.sending : newsletter.cta}
         </button>
 

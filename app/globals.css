@@ -241,6 +241,24 @@ summary,
 .btn:active { transform: scale(0.98); }
 @media (prefers-reduced-motion: reduce) { .btn:active { transform: none; } }
 
+/* One base size for every inline glyph. `flex: none` so an icon is never the
+   thing that gives way when a flex row runs short — the label wraps first. */
+.icon {
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+}
+/* Smaller inside a button, where the label is 11px mono: a 16px glyph next to it
+   reads as the button's subject rather than its mark. */
+.btn .icon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+.btn--sm .icon {
+  width: 0.8125rem;
+  height: 0.8125rem;
+}
+
 .btn--primary { background: var(--brand); color: var(--ink); }
 .btn--primary:hover { box-shadow: 0 0 32px -6px var(--brand-glow); }
 
@@ -1737,11 +1755,7 @@ summary,
 @media (prefers-reduced-motion: reduce) {
   .contact-links a:hover { transform: none; }
 }
-.contact-links .icon {
-  flex: none;
-  width: 1rem;
-  height: 1rem;
-}
+/* Size and flex-none both come from the base .icon rule now. */
 .contact-links span { min-width: 0; overflow-wrap: anywhere; }
 
 .contact-rail :focus-visible { outline-color: var(--ink); }

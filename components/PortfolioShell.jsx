@@ -1,6 +1,7 @@
 import content from '@content/en'
 import { Reveal, CountUp, PulseDot } from '@components/motion'
 import Tesseract from '@components/Tesseract'
+import { ArrowIcon, MailIcon } from '@components/icons'
 import WorkSection from '@components/sections/WorkSection'
 import AboutSection from '@components/sections/AboutSection'
 import ExperienceSection from '@components/sections/ExperienceSection'
@@ -41,8 +42,17 @@ const PortfolioShell = ({ posts }) => (
 
           <Reveal delay={0.15}>
             <div className="hero-actions">
-              <a href="#work" className="btn btn--primary">View work →</a>
-              <a href="#contact" className="btn btn--outline">Get in touch</a>
+              {/* The arrow was a literal → in the label, which a screen reader
+                  reads out as "right arrow" mid-sentence. As an icon it is
+                  aria-hidden and the label is just the words. */}
+              <a href="#work" className="btn btn--primary">
+                View work
+                <ArrowIcon />
+              </a>
+              <a href="#contact" className="btn btn--outline">
+                <MailIcon />
+                Get in touch
+              </a>
             </div>
           </Reveal>
         </div>

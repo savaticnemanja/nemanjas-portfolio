@@ -85,3 +85,20 @@ export function ArrowIcon() {
     </Glyph>
   )
 }
+
+export function SendIcon() {
+  return (
+    <Glyph>
+      <path d="M21.5 2.5 10.5 13.5M21.5 2.5 15 21.5l-4.5-8-8-4.5 19-6.5Z" />
+    </Glyph>
+  )
+}
+
+export function BellIcon() {
+  return (
+    <Glyph>
+      <path d="M18 8.5a6 6 0 1 0-12 0c0 6-2.5 7.5-2.5 7.5h17S18 14.5 18 8.5" />
+      <path d="M13.7 20a2 2 0 0 1-3.4 0" />
+    </Glyph>
+  )
+}
