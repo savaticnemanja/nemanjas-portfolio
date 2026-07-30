@@ -474,15 +474,35 @@ summary,
 /* ═════════════════════════════════════════════════════════════════════════
    HEADER
    ═════════════════════════════════════════════════════════════════════════ */
-/* All three insets sit on the <header>, not on `.header-inner`, so the blurred
-   black reaches up behind the status bar and out under the cutouts at the sides
-   while the row of content stays clear of them. Padding the inner row instead
-   leaves the bar itself short of the edges, which is the gap: on a phone the
-   header stops before the rounded corners and the page shows through beside it.
+/* All three insets sit on the <header>, not on `.header-inner`, so the black
+   reaches up behind the status bar and out under the cutouts at the sides while
+   the row of content stays clear of them. Padding the inner row instead leaves
+   the bar itself short of the edges, which is the gap: on a phone the header
+   stops before the rounded corners and the page shows through beside it.
    Left and right matter even where the top does not — the insets are non-zero
    down both sides in landscape.
    Same arrangement as oobeebets' site-header, which is `pt-safe-top
-   pl-safe-left pr-safe-right` on the header with plain padding on the row. */
+   pl-safe-left pr-safe-right` on the header with plain padding on the row.
+
+   Opaque, not glass. This was rgba(0, 0, 0, 0.7) over a 20px backdrop blur, and
+   the strip the status bar sits in inherited it along with the row. Frosted blur
+   under the clock and the battery reads as smear rather than as material: that
+   type is white with nothing behind it, so its backdrop kept changing tone with
+   whatever scrolled past underneath, and the blur held a ghost of the page up
+   there the whole time. Flat --ink is one fixed backdrop for it, and it also
+   hides the seam a rubber-band scroll opens between a blurred bar and the sharp
+   page above it.
+
+   Blur off rather than the tint alone taken to 1: `backdrop-filter` still costs
+   a compositor layer and a re-blur on every aurora frame even when nothing
+   opaque lets the result through, and this one spans the full width of a sticky
+   element that never leaves the screen. It is the most expensive of the fifteen
+   on the homepage and now the only one buying nothing.
+
+   The glass on the cards is untouched — see the GLASS section. Those sit over
+   the blooms with the page visible around them, which is where the material
+   reads; the header is a bar pinned to a hardware edge, which is where it does
+   not. */
 .header {
   position: sticky;
   top: 0;
@@ -491,32 +511,10 @@ summary,
   padding-left: var(--safe-left);
   padding-right: var(--safe-right);
   border-bottom: 1px solid transparent;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  transition: border-color 0.3s, background 0.3s;
+  background: var(--ink);
+  transition: border-color 0.3s;
 }
 .header[data-scrolled='true'] { border-bottom-color: var(--border); }
-
-/* The status bar gets flat black rather than the glass. Frosted blur under the
-   clock and the battery reads as smear: that type is white with nothing behind
-   it, so its backdrop changes tone with whatever happens to be scrolling past
-   underneath, and the 20px blur keeps a ghost of the page up there the whole
-   time. Opaque black is one fixed backdrop for it and hides the seam a
-   rubber-band scroll opens between the blurred bar and the sharp page above it.
-   Painted over the header's own background instead of replacing it, so the row
-   below keeps its glass — this claims the inset and nothing else, and collapses
-   to zero height wherever there is no inset to claim. */
-.header::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: var(--safe-top);
-  background: var(--ink);
-  pointer-events: none;
-}
 
 .header-inner {
   display: flex;
@@ -623,10 +621,14 @@ summary,
 }
 .menu-toggle:hover { color: var(--fg); border-color: var(--border-strong); }
 
+/* Opaque for the same reason the header is, and it has to move with it: the
+   panel renders inside <header>, so its 0.92 black was being read through the
+   header's blur. With that gone the remaining 8% would have shown the grid and
+   the blooms sharp behind the menu links rather than diffused. */
 .menu-panel {
   overflow: hidden;
   border-top: 1px solid var(--border);
-  background: rgba(0, 0, 0, 0.92);
+  background: var(--ink);
   animation: menu-in 0.25s var(--ease) both;
 }
 .menu-panel a {

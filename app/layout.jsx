@@ -67,6 +67,21 @@ export const metadata = {
     googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
   },
   manifest: '/manifest.webmanifest',
+  // None of this was declared, and `viewport-fit: cover` on its own does not
+  // replace it: cover says the page may use the full screen, `black-translucent`
+  // is what actually hands iOS's status bar region over to it. Without the pair,
+  // the system keeps that region, paints its own band across it and reports
+  // safe-area-inset-top as 0 — so every rule inset for the notch silently
+  // collapses to nothing and the band above the header is not the page's to
+  // colour. Same block oobeebets carries, which is where the difference between
+  // the two sites at the top of the screen came from.
+  appleWebApp: {
+    capable: true,
+    // The home screen label when iOS installs from the meta tags rather than the
+    // manifest; keep it in step with the manifest's short_name.
+    title: SITE.name,
+    statusBarStyle: 'black-translucent',
+  },
   formatDetection: { telephone: false },
   category: 'technology',
 }
