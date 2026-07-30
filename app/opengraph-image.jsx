@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og'
-import { SITE } from '@lib/site'
+import { SITE, OG_IMAGE } from '@lib/site'
 
 /**
  * The card every share of this site renders as. `twitter.card` is
@@ -10,7 +10,9 @@ import { SITE } from '@lib/site'
  * a flexbox subset only: every element needs an explicit `display: flex`, and
  * there is no cascade to lean on.
  */
-export const alt = `${SITE.author} — ${SITE.role}`
+/* Shared with OG_IMAGE, which is what routes declaring their own `openGraph`
+   hand to Next. Two copies of this string is how they came to disagree. */
+export const alt = OG_IMAGE.alt
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
