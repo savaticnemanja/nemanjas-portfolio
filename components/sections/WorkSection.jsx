@@ -5,6 +5,12 @@ import SkillIcon from '@components/SkillIcon'
 
 const index = (n) => String(n).padStart(2, '0')
 
+/* The note used to say "Six shipped products" as a literal, which was wrong the
+   moment the list changed length. Spelled out rather than a numeral because it
+   is running prose, not a figure. */
+const COUNT = ['no', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten']
+const spell = (n) => COUNT[n] ?? String(n)
+
 const WorkSection = () => {
   const { work } = content
   const [featured, ...rest] = work.projects
@@ -19,8 +25,8 @@ const WorkSection = () => {
           </h2>
         </div>
         <p className="section-note">
-          Six shipped products. Every one of them is live — the links go to the
-          real thing, not a case study.
+          {spell(work.projects.length)} shipped products. Every one of them is live —
+          the links go to the real thing, not a case study.
         </p>
       </Reveal>
 

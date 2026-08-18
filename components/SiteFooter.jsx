@@ -35,6 +35,7 @@ const SiteFooter = () => {
               <h2>Site</h2>
               <ul>
                 <li><SectionLink id="work">Work</SectionLink></li>
+                <li><SectionLink id="testimonials">Testimonials</SectionLink></li>
                 <li><SectionLink id="about">About</SectionLink></li>
                 <li><SectionLink id="experience">Experience</SectionLink></li>
                 <li><SectionLink id="blog">Blog</SectionLink></li>

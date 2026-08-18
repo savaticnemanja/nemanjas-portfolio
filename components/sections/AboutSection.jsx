@@ -9,7 +9,7 @@ const AboutSection = () => {
     <>
       <Reveal className="section-header">
         <div>
-          <p className="eyebrow">02 — About</p>
+          <p className="eyebrow">03 — About</p>
           <h2 id="about-heading" className="section-title">
             Who I <em>am</em>
           </h2>

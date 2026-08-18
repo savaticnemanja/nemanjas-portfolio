@@ -50,7 +50,7 @@ const BlogSection = ({ posts }) => {
     <>
       <Reveal className="section-header">
         <div>
-          <p className="eyebrow">04 — Writing</p>
+          <p className="eyebrow">05 — Writing</p>
           <h2 id="blog-heading" className="section-title">
             From the <em>blog</em>
           </h2>

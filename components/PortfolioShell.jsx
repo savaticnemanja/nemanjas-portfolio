@@ -4,6 +4,7 @@ import Tesseract from '@components/Tesseract'
 import { ArrowIcon, MailIcon } from '@components/icons'
 import SkillIcon from '@components/SkillIcon'
 import WorkSection from '@components/sections/WorkSection'
+import TestimonialsSection from '@components/sections/TestimonialsSection'
 import AboutSection from '@components/sections/AboutSection'
 import ExperienceSection from '@components/sections/ExperienceSection'
 import BlogSection from '@components/sections/BlogSection'
@@ -125,6 +126,10 @@ const PortfolioShell = ({ posts }) => (
     {/* ── SECTIONS ──────────────────────────────────────────────────────── */}
     <section id="work" className="section" aria-labelledby="work-heading">
       <div className="page"><WorkSection /></div>
+    </section>
+
+    <section id="testimonials" className="section" aria-labelledby="testimonials-heading">
+      <div className="page"><TestimonialsSection /></div>
     </section>
 
     <section id="about" className="section" aria-labelledby="about-heading">

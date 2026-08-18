@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
    the clean URLs middleware.js rewrites onto it. Keep in step with the matcher
    in middleware.js — a path missing here still works, it just loses the smooth
    scroll and reloads instead. */
-const SECTION_IDS = ['work', 'about', 'experience', 'blog', 'contact']
+const SECTION_IDS = ['work', 'testimonials', 'about', 'experience', 'blog', 'contact']
 const HOME_PATHS = new Set(['/', ...SECTION_IDS.map((id) => `/${id}`)])
 
 /* A bare `#id` while the sections are already in the document, the absolute

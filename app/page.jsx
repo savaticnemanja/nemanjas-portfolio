@@ -11,7 +11,7 @@ export default function HomePage() {
   // Cards only: BlogSection is a client component, and the full posts carry
   // every article's body twice over.
   const posts = getPostCards()
-  const { profile, contact, experience, skills, education } = content
+  const { profile, contact, experience, skills, education, testimonials } = content
 
   // Person + WebSite, so a search engine can tie the name, the role, the
   // employer and the profiles together rather than inferring them from prose.
@@ -52,6 +52,17 @@ export default function HomePage() {
           name: profile.availability,
         },
       },
+      /* The client quotes, tied back to the same Person node.
+         No `reviewRating` on any of them: nobody was asked for a score, and
+         inventing a 5-out-of-5 to satisfy a rich-result checklist would be
+         putting a number in someone else's mouth. */
+      ...testimonials.quotes.map((quote, i) => ({
+        '@type': 'Review',
+        '@id': appUrl(`/#review-${i + 1}`),
+        itemReviewed: { '@id': appUrl('/#person') },
+        author: { '@type': 'Person', name: quote.name, jobTitle: quote.role },
+        reviewBody: quote.quote.join('\n\n'),
+      })),
       {
         '@type': 'WebSite',
         '@id': appUrl('/#website'),

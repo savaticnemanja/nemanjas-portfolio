@@ -7,6 +7,7 @@ import { useSectionHref } from '@components/SectionLink'
 
 const LINKS = [
   { id: 'work', label: 'Work' },
+  { id: 'testimonials', label: 'Testimonials' },
   { id: 'about', label: 'About' },
   { id: 'experience', label: 'Experience' },
   { id: 'blog', label: 'Blog' },

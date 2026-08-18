@@ -13,7 +13,7 @@ const ExperienceSection = () => {
     <>
       <Reveal className="section-header">
         <div>
-          <p className="eyebrow">03 — Experience</p>
+          <p className="eyebrow">04 — Experience</p>
           <h2 id="experience-heading" className="section-title">
             Where I&apos;ve <em>worked</em>
           </h2>

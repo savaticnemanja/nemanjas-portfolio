@@ -656,6 +656,25 @@ summary,
   .menu-toggle { display: none; }
 }
 
+/* The bar was laid out for five links, and the sixth is the longest word in it.
+   At the breakpoint the row now lands within a few pixels of the logo, which is
+   close enough that a font fallback or a wider rendering of the same string
+   would push the CTA off the end.
+
+   So between 900 and 1100 the nav gives back the space it does not need —
+   tighter padding, tighter tracking, a smaller offset from the logo. That is
+   roughly 90px, which is the margin this row was missing. Every label survives
+   intact; nothing here shortens a word or drops a link. Above 1100 there is
+   room for the original spacing and the rule stops applying.
+
+   The `::after` insets move with the padding: they are hard-coded to it, and
+   left behind they would draw the scroll-spy underline wider than the link. */
+@media (min-width: 900px) and (max-width: 1099.98px) {
+  .header-nav { margin-left: 0.75rem; }
+  .header-nav a { padding-inline: 0.4375rem; letter-spacing: 0.12em; }
+  .header-nav a::after { left: 0.4375rem; right: 0.4375rem; }
+}
+
 /* ═════════════════════════════════════════════════════════════════════════
    HERO
    ═════════════════════════════════════════════════════════════════════════ */
@@ -1212,6 +1231,131 @@ summary,
   text-transform: uppercase;
   color: var(--fg-subtle);
 }
+
+/* ═════════════════════════════════════════════════════════════════════════
+   TESTIMONIALS
+   ═════════════════════════════════════════════════════════════════════════ */
+/* One card today, so a single column. `auto-fit` rather than a fixed count so a
+   second quote pairs up on a wide screen and stacks on a phone without this
+   rule being touched again — 30rem is the point below which two columns would
+   set the quote at under 40 characters a line. */
+.quotes {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(30rem, 100%), 1fr));
+}
+
+.quote {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  height: 100%;
+  padding: 1.75rem;
+  border-radius: var(--radius-card);
+}
+@media (min-width: 640px) { .quote { padding: 2.5rem; } }
+
+/* The one piece of brand colour in the section, and it sits behind the text
+   rather than beside it: an outlined glyph at the top-left corner, big enough to
+   read as a mark and faint enough that the first line still lands on the page
+   rather than on top of it. `line-height: 1` so the glyph's own leading does not
+   push the quote down by half its size. */
+.quote-mark {
+  position: absolute;
+  top: 0.5rem;
+  left: 1.25rem;
+  font-family: var(--font-sans);
+  font-size: 6rem;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--brand-line);
+  pointer-events: none;
+  user-select: none;
+}
+@media (min-width: 640px) {
+  .quote-mark { top: 0.75rem; left: 1.75rem; font-size: 8rem; }
+}
+
+/* Above the mark, and starting past it. */
+.quote-body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 68ch;
+  padding-top: 1.5rem;
+}
+
+.quote-body p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--fg);
+  text-wrap: pretty;
+}
+/* The opening sentence is the one anyone reads if they read nothing else, so it
+   is set a step up. Only ever the first paragraph — a second one at this size
+   would be two leads and no body. */
+.quote-body p:first-child {
+  font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
+  letter-spacing: -0.01em;
+  line-height: 1.65;
+}
+.quote-body p + p { color: var(--fg-muted); }
+
+/* Pushed to the bottom edge so two cards of unequal length still line their
+   attributions up. The rule is the section's only hairline; the card's border
+   is doing everything else. */
+.quote-by {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+@media (min-width: 768px) {
+  .quote-by {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+}
+
+.quote-who { display: flex; flex-direction: column; gap: 0.25rem; }
+
+.quote-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+
+/* Mono, like every other label on the site — this is meta about the quote, not
+   part of it. */
+.quote-role {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+}
+
+.quote-projects { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+
+/* Lower-case, because these are domain names and shouting them in the tag's
+   default uppercase makes them harder to recognise, not easier. */
+.quote-project {
+  gap: 0.3125rem;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+.quote-project:hover {
+  color: var(--brand);
+  border-color: var(--brand-line);
+}
+.quote-project span { opacity: 0.6; }
 
 /* ═════════════════════════════════════════════════════════════════════════
    ABOUT
@@ -2442,6 +2586,7 @@ summary,
   .project-card,
   .about-grid,
   .about-skills,
+  .quote,
   .blog-card,
   .blog-empty,
   .tool-card,

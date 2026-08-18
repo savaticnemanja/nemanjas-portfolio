@@ -52,6 +52,18 @@ const content = {
   work: {
     projects: [
       {
+        title: 'Mimoland',
+        description: 'Partner and investor-facing site for an award-winning original animated IP. Full-bleed video hero, character universe and festival laurels, exported to static files so the site has no runtime — only the contact handler is a container.',
+        href: 'https://welcometomimoland.com',
+        tech: ['Next.js', 'React', 'TypeScript', 'Docker'],
+      },
+      {
+        title: 'VIDIKA',
+        description: 'Single-page site for the creative studio behind Mimoland. Three full-viewport panels on a scroll-snap rail, with no UI framework and no bitmaps — every mark is inline SVG, and the page ships around 5 KB of JavaScript.',
+        href: 'https://vidika.co',
+        tech: ['Astro', 'TypeScript', 'Node.js', 'Nginx'],
+      },
+      {
         title: '3D Tour',
         description: 'Interactive 3D property walkthrough built with Three.js and WebGL. Allows real estate clients to explore spaces remotely with full 360° navigation.',
         href: 'https://3d-tour.nemanjas.dev',
@@ -64,28 +76,35 @@ const content = {
         tech: ['Next.js', 'Sanity', 'SCSS'],
       },
       {
-        title: 'AlgoKey',
-        description: 'Algorithmic trading dashboard with real-time market data feeds, strategy backtesting, and portfolio analytics.',
-        href: 'https://algokey.algo-sphere.com',
-        tech: ['React', 'Node.js', 'WebSocket', 'PostgreSQL'],
-      },
-      {
-        title: 'Minibambini eCommerce',
-        description: 'Full-featured e-commerce platform for a children\'s fashion brand. Cart, checkout, order management, and admin dashboard.',
-        href: 'https://minibambini.rs',
-        tech: ['Next.js', 'Stripe', 'PostgreSQL', 'Docker'],
-      },
-      {
-        title: 'Kosnica ReviewShield',
-        description: 'SaaS tool that monitors and manages online reviews for local businesses. Aggregates Google, Yelp, and TripAdvisor in real time.',
-        href: 'https://kosnica.nemanjas.dev',
-        tech: ['React', 'Node.js', 'REST APIs', 'Redis'],
-      },
-      {
         title: 'Spacetrin',
         description: 'Booking platform for co-working spaces and short-term office rentals. Real-time availability, payments, and member management.',
         href: 'https://spacetrin.com',
         tech: ['Next.js', 'Stripe', 'Prisma', 'PostgreSQL'],
+      },
+    ],
+  },
+
+  /* Real words from a real client, so they are quoted rather than paraphrased:
+     the only edit is the paragraph break, which the section needs to avoid
+     setting 700 characters as one block. `quote` is an array for that reason.
+
+     `projects` are the two sites the quote names. They are already in
+     work.projects above, but a reader who has scrolled past that section needs
+     the link here rather than a scroll back up to find it. */
+  testimonials: {
+    note: 'One client, two sites, one deadline. Their words, not a paraphrase.',
+    quotes: [
+      {
+        quote: [
+          'Working with Nemanja on vidika.co and welcometomimoland.com has been an exceptional experience. He combines outstanding technical expertise across front-end and back-end development with a refined design sensibility and remarkable attention to detail. Equally impressive are his responsiveness, flexibility and commitment to finding the best solution at every stage.',
+          'Facing a particularly tight deadline, Nemanja remained fully engaged, often working late into the night to ensure both websites were delivered to the highest standard. It is rare to find this level of technical capability, aesthetic judgement and professionalism in one person. I have found a trusted long-term collaborator and a valued member of our extended team.',
+        ],
+        name: 'Jasna Dragojević',
+        role: 'Founder, VIDIKA · Creator of Mimoland',
+        projects: [
+          { label: 'vidika.co', href: 'https://vidika.co' },
+          { label: 'welcometomimoland.com', href: 'https://welcometomimoland.com' },
+        ],
       },
     ],
   },
@@ -242,7 +261,7 @@ const content = {
   },
 
   contact: {
-    eyebrow: '05 — Contact',
+    eyebrow: '06 — Contact',
     headline: {
       lead: "Let's build",
       emphasis: 'something great',
