@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-const SECTION_IDS = ['about', 'experience', 'work', 'testimonials', 'blog', 'contact']
+const SECTION_IDS = ['work', 'testimonials', 'experience', 'about', 'blog', 'contact']
 
 export function middleware(request) {
   const { pathname } = request.nextUrl
@@ -14,5 +14,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/about', '/experience', '/work', '/testimonials', '/blog', '/contact'],
+  matcher: ['/work', '/testimonials', '/experience', '/about', '/blog', '/contact'],
 }

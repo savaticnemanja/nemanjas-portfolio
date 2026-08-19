@@ -84,20 +84,61 @@ const content = {
     ],
   },
 
-  /* Real words from a real client, so they are quoted rather than paraphrased:
-     the only edit is the paragraph break, which the section needs to avoid
-     setting 700 characters as one block. `quote` is an array for that reason.
+  /* Quotes from clients, in their own words. Nothing here is paraphrased and
+     nothing is rewritten — the only liberties taken are cutting and the
+     paragraph break, and a cut is marked with a leading ellipsis on the
+     paragraph that follows it so a reader can see that something was removed.
 
-     `projects` are the two sites the quote names. They are already in
-     work.projects above, but a reader who has scrolled past that section needs
-     the link here rather than a scroll back up to find it. */
+     Jasna's runs at about half its original length. The full text, as sent:
+
+       "Working with Nemanja on vidika.co and welcometomimoland.com has been an
+        exceptional experience. He combines outstanding technical expertise
+        across front-end and back-end development with a refined design
+        sensibility and remarkable attention to detail. Equally impressive are
+        his responsiveness, flexibility and commitment to finding the best
+        solution at every stage.
+
+        Facing a particularly tight deadline, Nemanja remained fully engaged,
+        often working late into the night to ensure both websites were
+        delivered to the highest standard. It is rare to find this level of
+        technical capability, aesthetic judgement and professionalism in one
+        person. I have found a trusted long-term collaborator and a valued
+        member of our extended team."
+
+     What was kept is the part nobody else can say: the front-to-back-plus-design
+     combination, and the judgement that it is rare in one person. What went is
+     the opener (the projects are linked under the quote, so it was naming what
+     the card already names) and the late-nights sentence, which is the one line
+     here that reads as a warning as easily as a compliment.
+
+     ── ADDING THE NEXT TWO ─────────────────────────────────────────────────
+     Copy this shape. Nothing else needs touching — the grid goes to two
+     columns at two quotes and three at three, and the section heading and note
+     already read for any number.
+
+       {
+         quote: [
+           'First paragraph.',
+           '… Second paragraph, if the cut left one.',
+         ],
+         name: 'Their Name',
+         role: 'Title, Company',
+         projects: [
+           { label: 'their-site.com', href: 'https://their-site.com' },
+         ],
+       },
+
+     `projects` is optional — drop it and the card just ends at the name. Keep
+     each quote near this length: three of these sit side by side on a desktop,
+     and one that runs twice as long as its neighbours sets the height for all
+     three. */
   testimonials: {
-    note: 'One client, two sites, one deadline. Their words, not a paraphrase.',
+    note: 'People I have built for, in their own words. Quoted, not paraphrased.',
     quotes: [
       {
         quote: [
-          'Working with Nemanja on vidika.co and welcometomimoland.com has been an exceptional experience. He combines outstanding technical expertise across front-end and back-end development with a refined design sensibility and remarkable attention to detail. Equally impressive are his responsiveness, flexibility and commitment to finding the best solution at every stage.',
-          'Facing a particularly tight deadline, Nemanja remained fully engaged, often working late into the night to ensure both websites were delivered to the highest standard. It is rare to find this level of technical capability, aesthetic judgement and professionalism in one person. I have found a trusted long-term collaborator and a valued member of our extended team.',
+          'He combines outstanding technical expertise across front-end and back-end development with a refined design sensibility and remarkable attention to detail.',
+          '\u2026 It is rare to find this level of technical capability, aesthetic judgement and professionalism in one person. I have found a trusted long-term collaborator and a valued member of our extended team.',
         ],
         name: 'Jasna Dragojević',
         role: 'Founder, VIDIKA · Creator of Mimoland',

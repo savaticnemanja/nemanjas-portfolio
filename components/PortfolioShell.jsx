@@ -132,12 +132,12 @@ const PortfolioShell = ({ posts }) => (
       <div className="page"><TestimonialsSection /></div>
     </section>
 
-    <section id="about" className="section" aria-labelledby="about-heading">
-      <div className="page"><AboutSection /></div>
-    </section>
-
     <section id="experience" className="section" aria-labelledby="experience-heading">
       <div className="page"><ExperienceSection /></div>
+    </section>
+
+    <section id="about" className="section" aria-labelledby="about-heading">
+      <div className="page"><AboutSection /></div>
     </section>
 
     <section id="blog" className="section" aria-labelledby="blog-heading">

@@ -12,6 +12,12 @@ import { Reveal, Stagger } from '@components/motion'
  * Stagger over Reveal even though there is one quote today: a second one is a
  * content edit, and this way it lands in sequence rather than needing the
  * component changed with it.
+ *
+ * `data-count` is the whole of the layout contract. The grid needs to know how
+ * many cards it is laying out — one is a full-width panel, three are a row of
+ * equals — and CSS cannot count its own children without a quantity query per
+ * case. Writing the number out here keeps that decision in one attribute and
+ * the rules in globals.css legible.
  */
 const TestimonialsSection = () => {
   const { testimonials } = content
@@ -28,7 +34,7 @@ const TestimonialsSection = () => {
         <p className="section-note">{testimonials.note}</p>
       </Reveal>
 
-      <Stagger className="quotes">
+      <Stagger className="quotes" data-count={testimonials.quotes.length}>
         {testimonials.quotes.map((item) => (
           <figure key={item.name} className="card quote">
             {/* Decorative: the blockquote already says this is a quotation, and
