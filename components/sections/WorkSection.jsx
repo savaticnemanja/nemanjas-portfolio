@@ -11,6 +11,26 @@ const index = (n) => String(n).padStart(2, '0')
 const COUNT = ['no', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten']
 const spell = (n) => COUNT[n] ?? String(n)
 
+/**
+ * The bento rhythm, in columns of the six-column grid the tiles sit on.
+ *
+ * Pairs alternate wide|narrow, narrow|wide, so no two rows break at the same
+ * place and the seam walks down the section instead of ruling a line through
+ * it. A leftover odd tile takes the full width rather than sitting in half a
+ * row with a hole beside it — the same call the testimonial grid makes.
+ *
+ * Computed rather than written per project because the list is a content file:
+ * add a sixth project and the shape follows, with no CSS to keep in sync. It
+ * is still worth reading `content/en.js` next to this — which slot a project
+ * lands in decides how much room its description gets.
+ */
+const PAIRS = [
+  [4, 2],
+  [2, 4],
+]
+const spanFor = (i, total) =>
+  i === total - 1 && total % 2 === 1 ? 6 : PAIRS[Math.floor(i / 2) % 2][i % 2]
+
 const WorkSection = () => {
   const { work } = content
   const [featured, ...rest] = work.projects
@@ -66,7 +86,10 @@ const WorkSection = () => {
           </ProjectCard>
         </Reveal>
 
-        <Stagger className="projects-rest">
+        <Stagger
+          className="projects-rest"
+          itemProps={rest.map((_, i) => ({ 'data-span': spanFor(i, rest.length) }))}
+        >
           {rest.map((project, idx) => (
             <ProjectCard key={project.title} href={project.href}>
               <span className="project-arrow" aria-hidden="true">↗</span>

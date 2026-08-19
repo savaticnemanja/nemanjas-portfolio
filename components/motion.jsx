@@ -63,8 +63,17 @@ export function Reveal({ as: Tag = 'div', delay = 0, className = '', children, .
  * a grid animates as one group rather than as N independent elements racing
  * each other. Each child is wrapped and handed its index; the 60ms step lives
  * in CSS.
+ *
+ * `itemProps` is an array, one entry per child, whose attributes go on that
+ * generated wrapper. It exists because the wrapper — not the child — is the
+ * grid item, so anything the layout needs per cell (the work grid's bento
+ * span) has to reach the div this component creates; without it a caller can
+ * only style its own element and the span lands one level too deep, where
+ * `grid-column` does nothing. An array rather than an `(index) => props`
+ * callback because the callers are server components and a function cannot
+ * cross that boundary.
  */
-export function Stagger({ as: Tag = 'div', className = '', children, ...rest }) {
+export function Stagger({ as: Tag = 'div', className = '', itemProps, children, ...rest }) {
   const ref = useRef(null)
   const inView = useInView(ref, '-40px')
 
@@ -77,7 +86,7 @@ export function Stagger({ as: Tag = 'div', className = '', children, ...rest }) 
     >
       {Children.map(children, (child, i) =>
         child == null ? child : (
-          <div className="stagger-item" style={{ '--i': i }}>
+          <div className="stagger-item" style={{ '--i': i }} {...itemProps?.[i]}>
             {child}
           </div>
         ),

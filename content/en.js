@@ -49,6 +49,13 @@ const content = {
     ],
   },
 
+  /* Order is the layout. The work grid is a bento — the first entry is the
+     featured card, and the rest alternate wide | narrow | narrow | wide down a
+     six-column grid, with a leftover odd tile taking the full width. So a
+     project with a three-line description belongs in a wide slot (positions 2
+     and 5 of `rest`) and a short one in a narrow slot (3 and 4), or the narrow
+     tiles run tall and drag their neighbours with them. WorkSection owns the
+     rhythm; see `spanFor` there. */
   work: {
     projects: [
       {
@@ -58,10 +65,10 @@ const content = {
         tech: ['Next.js', 'React', 'TypeScript', 'Docker'],
       },
       {
-        title: 'VIDIKA',
-        description: 'Single-page site for the creative studio behind Mimoland. Three full-viewport panels on a scroll-snap rail, with no UI framework and no bitmaps — every mark is inline SVG, and the page ships around 5 KB of JavaScript.',
-        href: 'https://vidika.co',
-        tech: ['Astro', 'TypeScript', 'Node.js', 'Nginx'],
+        title: 'oobee bets',
+        description: 'Daily sports betting picks, settled in public against the real final score. Tier gating strips locked picks out of the payload rather than hiding them client-side, sessions are database-backed and revocable, and the pick record is append-only with an audit trail. Live today as the pre-launch list while the first slate fills.',
+        href: 'https://oobeebets.com',
+        tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'Tailwind CSS'],
       },
       {
         title: '3D Tour',
@@ -74,6 +81,12 @@ const content = {
         description: 'Marketing site for a premium real estate brand. Custom animations, multilingual content, and CMS-driven property listings.',
         href: 'https://avalahomeconcept.com',
         tech: ['Next.js', 'Sanity', 'SCSS'],
+      },
+      {
+        title: 'VIDIKA',
+        description: 'Single-page site for the creative studio behind Mimoland. Three full-viewport panels on a scroll-snap rail, with no UI framework and no bitmaps — every mark is inline SVG, and the page ships around 5 KB of JavaScript.',
+        href: 'https://vidika.co',
+        tech: ['Astro', 'TypeScript', 'Node.js', 'Nginx'],
       },
       {
         title: 'Spacetrin',
@@ -111,7 +124,31 @@ const content = {
      the card already names) and the late-nights sentence, which is the one line
      here that reads as a warning as easily as a compliment.
 
-     ── ADDING THE NEXT TWO ─────────────────────────────────────────────────
+     Anthony's runs at about half its original length too. The full text, as
+     sent:
+
+       "Early in my company's development, we faced an uphill battle with web
+        development. Everywhere we looked seemed to offer unreasonable high
+        prices for the same LLM-quality development. This could not be further
+        than the case when hiring Nemanja. He works with efficiency that is
+        unparalleled. When you hire Nemanja you aren't just hiring a developer
+        you're hiring someone ready to fulfill every request, beyond what you
+        could have seen before he delivers his product. His creative touch and
+        expertise in the field shines through his loyalty and collaborative
+        nature. Every project or call Nemanja is on is lifted in both
+        communication and efficiency. Nemanja's talent reaches far beyond his
+        phenomenal technical skills."
+
+     What was kept is the part that describes working with me rather than
+     ranking me: that the delivery goes past the brief, and that the call
+     itself gets better. What went is the opener, which is a verdict on other
+     agencies' pricing rather than on this work and reads as a swipe on a page
+     it has nothing to do with, and the two superlative sentences — a quote
+     that says "unparalleled" persuades nobody, while "beyond what you could
+     have seen before he delivers his product" is a specific claim a reader can
+     weigh. Not reworded: the run-on in the kept first sentence is his.
+
+     ── ADDING THE NEXT ONE ─────────────────────────────────────────────────
      Copy this shape. Nothing else needs touching — the grid goes to two
      columns at two quotes and three at three, and the section heading and note
      already read for any number.
@@ -145,6 +182,17 @@ const content = {
         projects: [
           { label: 'vidika.co', href: 'https://vidika.co' },
           { label: 'welcometomimoland.com', href: 'https://welcometomimoland.com' },
+        ],
+      },
+      {
+        quote: [
+          'When you hire Nemanja you aren’t just hiring a developer you’re hiring someone ready to fulfill every request, beyond what you could have seen before he delivers his product.',
+          '\u2026 Every project or call Nemanja is on is lifted in both communication and efficiency. Nemanja’s talent reaches far beyond his phenomenal technical skills.',
+        ],
+        name: 'Anthony Magera',
+        role: 'Founder & CEO, oobee',
+        projects: [
+          { label: 'oobeebets.com', href: 'https://oobeebets.com' },
         ],
       },
     ],

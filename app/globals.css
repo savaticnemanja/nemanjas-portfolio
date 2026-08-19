@@ -997,21 +997,53 @@ summary,
    WORK
    ═════════════════════════════════════════════════════════════════════════ */
 .projects { display: grid; gap: 0.75rem; }
+
+/* Bento. One six-column grid; every tile claims 2, 4 or 6 of it, and the span
+   arrives as `data-span` from WorkSection, which computes the rhythm off the
+   array length. Six columns because it is the smallest count that divides into
+   both the thirds and the halves the wide|narrow alternation needs.
+
+   Widths only — no `grid-row` spans. A tall tile has to be paired with tiles
+   that happen to add up to its height or the grid opens a hole underneath it,
+   and nothing here can promise that when the projects live in a content file.
+   Height comes from the copy instead, which is why the wide slots want the
+   long descriptions. */
 .projects-rest {
   display: grid;
   gap: 0.75rem;
   grid-template-columns: 1fr;
 }
-@media (min-width: 768px) {
-  .projects-rest { grid-template-columns: repeat(2, 1fr); }
 
-  /* An odd card left alone at the end of the grid reads as a mistake. Give it
-     the full width and a two-column body — description left, stack right,
-     footer rule across both — so it closes the section deliberately. Named
-     areas rather than source order, because the markup is the same as every
-     other card's. */
-  .projects-rest > :last-child:nth-child(odd) { grid-column: 1 / -1; }
-  .projects-rest > :last-child:nth-child(odd) .project-body {
+/* Tablet keeps the plain two-up: at this width a 4|2 split leaves the narrow
+   tile too thin to hold a title on one line. The full-width tiles stay full
+   width, so the rhythm is still there, just flattened. */
+@media (min-width: 768px) {
+  .projects-rest { grid-template-columns: repeat(6, 1fr); }
+  .projects-rest > * { grid-column: span 6; }
+  .projects-rest > [data-span='2'],
+  .projects-rest > [data-span='4'] { grid-column: span 3; }
+}
+
+@media (min-width: 1024px) {
+  .projects-rest > [data-span='2'] { grid-column: span 2; }
+  .projects-rest > [data-span='4'] { grid-column: span 4; }
+
+  /* A wide tile is two thirds of the row, so the description would otherwise
+     run to a 90-character measure. Capped, and the tags move under it rather
+     than to the side — the side column is for the full-width tile below. */
+  .projects-rest > [data-span='4'] .project-title { font-size: 1.5rem; }
+  .projects-rest > [data-span='4'] .project-desc { max-width: 54ch; }
+
+  /* A narrow tile is a third of the row. Everything steps down one size so it
+     reads as a smaller card rather than the same card squeezed. */
+  .projects-rest > [data-span='2'] .project-title { font-size: 1.25rem; }
+  .projects-rest > [data-span='2'] .project-desc { font-size: 0.8125rem; }
+
+  /* The full-width tile that closes the grid gets a two-column body —
+     description left, stack right, footer rule across both — so its extra
+     width buys a different shape and not just longer lines. Named areas rather
+     than source order, because the markup is the same as every other card's. */
+  .projects-rest > [data-span='6'] .project-body {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.75fr);
     column-gap: 3rem;
@@ -1021,16 +1053,16 @@ summary,
       'desc  tags'
       'cta   cta';
   }
-  .projects-rest > :last-child:nth-child(odd) .project-meta  { grid-area: meta; }
-  .projects-rest > :last-child:nth-child(odd) .project-title { grid-area: title; }
-  .projects-rest > :last-child:nth-child(odd) .project-desc  { grid-area: desc; }
-  .projects-rest > :last-child:nth-child(odd) .project-tags  {
+  .projects-rest > [data-span='6'] .project-meta  { grid-area: meta; }
+  .projects-rest > [data-span='6'] .project-title { grid-area: title; }
+  .projects-rest > [data-span='6'] .project-desc  { grid-area: desc; }
+  .projects-rest > [data-span='6'] .project-tags  {
     grid-area: tags;
     align-content: start;
     justify-content: flex-end;
     margin-top: 0.25rem;
   }
-  .projects-rest > :last-child:nth-child(odd) .project-cta   { grid-area: cta; }
+  .projects-rest > [data-span='6'] .project-cta   { grid-area: cta; }
 }
 
 .project-card {
