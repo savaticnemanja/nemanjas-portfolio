@@ -2,6 +2,7 @@ import content from '@content/en'
 import ProjectCard from '@components/ProjectCard'
 import { Reveal, Stagger } from '@components/motion'
 import SkillIcon from '@components/SkillIcon'
+import ProjectIcon from '@components/ProjectIcon'
 
 const index = (n) => String(n).padStart(2, '0')
 
@@ -60,7 +61,10 @@ const WorkSection = () => {
                 <span className="num">{index(1)}</span>
                 <b>Featured</b>
               </p>
-              <h3 className="project-title">{featured.title}</h3>
+              <h3 className="project-title">
+                <ProjectIcon src={featured.icon} title={featured.title} />
+                {featured.title}
+              </h3>
               <p className="project-desc">{featured.description}</p>
               {featured.tech?.length ? (
                 <div className="project-tags">
@@ -97,7 +101,10 @@ const WorkSection = () => {
                 <p className="project-meta">
                   <span className="num">{index(idx + 2)}</span>
                 </p>
-                <h3 className="project-title">{project.title}</h3>
+                <h3 className="project-title">
+                  <ProjectIcon src={project.icon} title={project.title} />
+                  {project.title}
+                </h3>
                 <p className="project-desc">{project.description}</p>
                 {project.tech?.length ? (
                   <div className="project-tags">

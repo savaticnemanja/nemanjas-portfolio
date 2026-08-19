@@ -55,17 +55,27 @@ const content = {
      project with a three-line description belongs in a wide slot (positions 2
      and 5 of `rest`) and a short one in a narrow slot (3 and 4), or the narrow
      tiles run tall and drag their neighbours with them. WorkSection owns the
-     rhythm; see `spanFor` there. */
+     rhythm; see `spanFor` there.
+
+     `icon` is the site's own favicon, saved into public/favicons rather than
+     hotlinked — a third-party request per card on a page that otherwise makes
+     none, for an image that changes maybe once a year, and one that fails
+     silently to a broken chip the day a site reorganises its public folder.
+     Re-download it if a brand changes. Optional: a project without one falls
+     back to a monogram, which is the case for 3D Tour, whose site serves no
+     icon at all. */
   work: {
     projects: [
       {
         title: 'Mimoland',
+        icon: '/favicons/mimoland.png',
         description: 'Partner and investor-facing site for an award-winning original animated IP. Full-bleed video hero, character universe and festival laurels, exported to static files so the site has no runtime — only the contact handler is a container.',
         href: 'https://welcometomimoland.com',
         tech: ['Next.js', 'React', 'TypeScript', 'Docker'],
       },
       {
         title: 'oobee bets',
+        icon: '/favicons/oobeebets.svg',
         description: 'Daily sports betting picks, settled in public against the real final score. Tier gating strips locked picks out of the payload rather than hiding them client-side, sessions are database-backed and revocable, and the pick record is append-only with an audit trail. Live today as the pre-launch list while the first slate fills.',
         href: 'https://oobeebets.com',
         tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'Tailwind CSS'],
@@ -78,18 +88,21 @@ const content = {
       },
       {
         title: 'Avala Home Concept',
+        icon: '/favicons/avala.svg',
         description: 'Marketing site for a premium real estate brand. Custom animations, multilingual content, and CMS-driven property listings.',
         href: 'https://avalahomeconcept.com',
         tech: ['Next.js', 'Sanity', 'SCSS'],
       },
       {
         title: 'VIDIKA',
+        icon: '/favicons/vidika.svg',
         description: 'Single-page site for the creative studio behind Mimoland. Three full-viewport panels on a scroll-snap rail, with no UI framework and no bitmaps — every mark is inline SVG, and the page ships around 5 KB of JavaScript.',
         href: 'https://vidika.co',
         tech: ['Astro', 'TypeScript', 'Node.js', 'Nginx'],
       },
       {
         title: 'Spacetrin',
+        icon: '/favicons/spacetrin.svg',
         description: 'Booking platform for co-working spaces and short-term office rentals. Real-time availability, payments, and member management.',
         href: 'https://spacetrin.com',
         tech: ['Next.js', 'Stripe', 'Prisma', 'PostgreSQL'],
