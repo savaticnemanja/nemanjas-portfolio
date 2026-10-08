@@ -62,8 +62,7 @@ const content = {
      none, for an image that changes maybe once a year, and one that fails
      silently to a broken chip the day a site reorganises its public folder.
      Re-download it if a brand changes. Optional: a project without one falls
-     back to a monogram, which is the case for 3D Tour, whose site serves no
-     icon at all. */
+     back to a monogram of its title. */
   work: {
     projects: [
       {
@@ -81,12 +80,6 @@ const content = {
         tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'Tailwind CSS'],
       },
       {
-        title: '3D Tour',
-        description: 'Interactive 3D property walkthrough built with Three.js and WebGL. Allows real estate clients to explore spaces remotely with full 360° navigation.',
-        href: 'https://3d-tour.nemanjas.dev',
-        tech: ['Three.js', 'WebGL', 'React', 'Vite'],
-      },
-      {
         title: 'Avala Home Concept',
         icon: '/favicons/avala.svg',
         description: 'Marketing site for a premium real estate brand. Custom animations, multilingual content, and CMS-driven property listings.',
@@ -94,18 +87,18 @@ const content = {
         tech: ['Next.js', 'Sanity', 'SCSS'],
       },
       {
-        title: 'VIDIKA',
-        icon: '/favicons/vidika.svg',
-        description: 'Single-page site for the creative studio behind Mimoland. Three full-viewport panels on a scroll-snap rail, with no UI framework and no bitmaps — every mark is inline SVG, and the page ships around 5 KB of JavaScript.',
-        href: 'https://vidika.co',
-        tech: ['Astro', 'TypeScript', 'Node.js', 'Nginx'],
-      },
-      {
         title: 'Spacetrin',
         icon: '/favicons/spacetrin.svg',
         description: 'Booking platform for co-working spaces and short-term office rentals. Real-time availability, payments, and member management.',
         href: 'https://spacetrin.com',
         tech: ['Next.js', 'Stripe', 'Prisma', 'PostgreSQL'],
+      },
+      {
+        title: 'VIDIKA',
+        icon: '/favicons/vidika.svg',
+        description: 'Single-page site for the creative studio behind Mimoland. Three full-viewport panels on a scroll-snap rail, with no UI framework and no bitmaps — every mark is inline SVG, and the page ships around 5 KB of JavaScript.',
+        href: 'https://vidika.co',
+        tech: ['Astro', 'TypeScript', 'Node.js', 'Nginx'],
       },
     ],
   },
